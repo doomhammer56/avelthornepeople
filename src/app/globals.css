@@ -97,7 +97,7 @@
   --font-chinese: "Noto Sans SC Variable";
   --font-hanken: var(--font-host-grotesk);
 
-  /* Brand core tokens (Tricore Customer Care LLC) */
+  /* Brand core tokens (Avelthorne People Group) */
   --brand-ivory: #f4eee4;
   --brand-navy: #061722;
   --brand-navy-light: #0d283b;
@@ -115,7 +115,7 @@
   --card-foreground: #061722;
   --popover: #ffffff;
   --popover-foreground: #061722;
-  --primary: #17545b; /* Tricore Teal */
+  --primary: #17545b; /* Avelthorne Teal */
   --primary-foreground: #ffffff;
   --secondary: #f3efe8; /* Warm paper / soft cream */
   --secondary-foreground: #061722;

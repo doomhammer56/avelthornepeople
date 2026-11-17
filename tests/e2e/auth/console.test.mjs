@@ -388,7 +388,7 @@ test(
             `Live ${path} screen must render successfully`,
           );
           assert.ok(!html.includes("jasmine.c@mail.com"));
-          assert.ok(!html.includes("chen.zm@tricore.com.de"));
+          assert.ok(!html.includes("chen.zm@avelthornepeople.com"));
         }
         const readOnlyApps = await call("/admin/applications?lang=en", {
           jar: reader.jar,

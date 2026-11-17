@@ -12,7 +12,7 @@ export function getSiteUrl(): URL {
   if (vercelHost) return new URL(`https://${vercelHost}`);
   // Default to the canonical production domain so all generated URLs
   // (sitemap, robots, JSON-LD) always resolve against the real origin.
-  return new URL("https://tricore.com.de");
+  return new URL("https://avelthornepeople.com");
 }
 
 const loopbackHosts = new Set(["localhost", "127.0.0.1", "[::1]"]);

@@ -38,7 +38,7 @@ async function getLocale(params: Props["params"]) {
 }
 
 export const metadata: Metadata = {
-  title: "Design System | Tricore Customer Care LLC",
+  title: "Design System | Avelthorne People Group",
   description: "Live component gallery, typography scale, and color tokens.",
   robots: { index: false, follow: false },
 };
@@ -73,7 +73,7 @@ export default async function DesignSystemPage({ params }: Props) {
             <span className="text-xs text-muted-foreground font-mono">v2.1 · Refined Weights & Radius</span>
           </div>
           <h1 className="font-serif text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight text-foreground">
-            Tricore Design System
+            Avelthorne Design System
           </h1>
           <p className="mt-3 text-base sm:text-lg text-muted-foreground max-w-2xl leading-relaxed">
             Live preview of customized UI components, balanced typography, rounded surfaces, and Lucide icons.
@@ -163,7 +163,7 @@ export default async function DesignSystemPage({ params }: Props) {
             <div className="border-b border-border/60 pb-6">
               <span className="text-xs font-mono text-muted-foreground">Body Copy / Host Grotesk (Regular & Medium)</span>
               <p className="font-sans text-base sm:text-lg text-foreground mt-1 leading-relaxed max-w-3xl">
-                Tricore Customer Care LLC brings together people, expertise and opportunity to support the work we do and the teams we build. Supporting exceptional customer experiences through effective operations.
+                Avelthorne People Group brings together people, expertise and opportunity to support the work we do and the teams we build. Supporting exceptional customer experiences through effective operations.
               </p>
             </div>
 
@@ -407,7 +407,7 @@ export default async function DesignSystemPage({ params }: Props) {
               locale={locale}
               content={t}
               heading="Find Your Next Opportunity"
-              subheading="Build your career with Tricore Customer Care LLC. Explore opportunities across our teams."
+              subheading="Build your career with Avelthorne People Group. Explore opportunities across our teams."
             />
           </div>
         </section>

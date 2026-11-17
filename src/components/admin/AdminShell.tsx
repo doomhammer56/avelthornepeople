@@ -171,14 +171,14 @@ export function AdminShell({
                 <Image
                   src="/brand/logo-symbol.webp"
                   alt=""
-                  width={414}
-                  height={450}
+                  width={1536}
+                  height={1550}
                   className="h-6 w-auto"
                 />
               </span>
               <span className="flex min-w-0 flex-col gap-0.5 overflow-hidden group-data-[collapsible=icon]:hidden">
                 <strong className="text-[15px] leading-none font-bold whitespace-nowrap">
-                  TRICORE
+                  AVELTHORNE
                 </strong>
                 <span className="text-[11px] whitespace-nowrap text-muted-foreground">
                   {lang === "zh" ? "招聘管理后台" : "Staff Console"}

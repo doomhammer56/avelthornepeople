@@ -27,7 +27,7 @@ export function StatusPanel({
         <p className={statusCodeClass} aria-hidden="true">
           {code}
         </p>
-        <p className={eyebrowClass}>Tricore Customer Care LLC</p>
+        <p className={eyebrowClass}>Avelthorne People Group</p>
         <h1 className={statusTitleClass}>{title}</h1>
         <p className={statusDescriptionClass}>{description}</p>
         <div className={statusActionsClass}>{children}</div>

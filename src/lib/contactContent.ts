@@ -34,7 +34,7 @@ export const contactContent: Record<Locale, ContactContent> = {
   en: {
     eyebrow: "Contact",
     title: "Get In Touch",
-    introduction: "Connect with Tricore Customer Care LLC.",
+    introduction: "Connect with Avelthorne People Group.",
     enquiries: [
       {
         label: "Business Enquiries",
@@ -68,7 +68,7 @@ export const contactContent: Record<Locale, ContactContent> = {
   zh: {
     eyebrow: "联系我们",
     title: "取得联系",
-    introduction: "欢迎与 Tricore Customer Care LLC 取得联系。",
+    introduction: "欢迎与 Avelthorne People Group 取得联系。",
     enquiries: [
       {
         label: "业务咨询",

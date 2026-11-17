@@ -13,7 +13,7 @@ SMTP and save:
 | Setting      | Value                   |
 | ------------ | ----------------------- |
 | Sender email | `onboarding@resend.dev` |
-| Sender name  | `Tricore Customer Care LLC Staff`       |
+| Sender name  | `Avelthorne People Group Staff`       |
 | Host         | `smtp.resend.com`       |
 | Port         | `465` (implicit TLS)    |
 | Username     | `resend`                |
@@ -36,10 +36,10 @@ See [Resend SMTP settings](https://resend.com/docs/send-with-supabase-smtp) and
    with the same hostname and port. Turnstile must allow that hostname too.
 3. Under **Email Templates → Reset password**, use the contents of
    [templates/recovery.html](templates/recovery.html). Suggested subject:
-   `Reset your Tricore Customer Care LLC staff password / 重置员工密码`.
+   `Reset your Avelthorne People Group staff password / 重置员工密码`.
 4. Under **Email Templates → Invite user**, use
    [templates/invite.html](templates/invite.html). Suggested subject:
-   `Set up your Tricore Customer Care LLC staff password / 设置员工密码`.
+   `Set up your Avelthorne People Group staff password / 设置员工密码`.
 5. Keep the `{{ .RedirectTo }}` and `{{ .TokenHash }}` placeholders intact.
    The app sends a fixed `/auth/confirm` redirect, and the user confirms with a
    same-origin POST. Link previews and GET requests do not exchange the token.

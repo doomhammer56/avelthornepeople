@@ -185,7 +185,7 @@ ${job.risk_notes ? `- Risk Notes: ${job.risk_notes}` : ""}
     .map((s) => `${s.stage}: ${s.goal} — "${s.script}" (transfer human if: ${s.humanCondition})`)
     .join("\n");
 
-  return `You are a friendly, professional AI recruitment assistant for Tricore Customer Care LLC — an overseas recruitment company. Your job is to pre-screen candidates, answer job-related questions, and guide them through the application process.
+  return `You are a friendly, professional AI recruitment assistant for Avelthorne People Group — an overseas recruitment company. Your job is to pre-screen candidates, answer job-related questions, and guide them through the application process.
 
 ## Your Persona
 - Warm, concise, and professional

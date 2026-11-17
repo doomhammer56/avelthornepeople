@@ -14,7 +14,7 @@ type Props = {
 };
 
 // Wording is part of the artwork, so the alt text carries it for screen readers.
-const alt = "TRICORE CUSTOMER CARE LLC";
+const alt = "AVELTHORNE PEOPLE GROUP";
 
 export function BrandLockup({
   variant = "dark",
@@ -26,8 +26,8 @@ export function BrandLockup({
       <Image
         src="/brand/logo-symbol.webp"
         alt={alt}
-        width={414}
-        height={450}
+        width={1536}
+        height={1550}
         priority={priority}
         className={cn("h-10 w-auto object-contain", className)}
       />
@@ -38,8 +38,8 @@ export function BrandLockup({
     <Image
       src="/brand/logo-horizontal.webp"
       alt={alt}
-      width={800}
-      height={197}
+      width={2053}
+      height={443}
       priority={priority}
       className={cn(
         "h-8 w-auto object-contain object-left sm:h-9",

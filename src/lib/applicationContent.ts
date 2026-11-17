@@ -15,7 +15,7 @@ export const applicationContent = {
     resumeHint: "Click or drop to upload · PDF / DOC, max 10MB",
     remove: "Remove File",
     consent:
-      "I agree Tricore Customer Care LLC may use my personal data for recruitment, retained for 24 months. I may request deletion at any time.",
+      "I agree Avelthorne People Group may use my personal data for recruitment, retained for 24 months. I may request deletion at any time.",
     submitConfirmTitle: "Submit application?",
     submitConfirmDescription:
       "Please confirm you want to send this application for this role. You can still edit your details after canceling.",
@@ -103,7 +103,7 @@ export const applicationContent = {
     resumeHint: "点击或拖拽上传 · PDF / DOC，不超过 10MB",
     remove: "移除文件",
     consent:
-      "我同意 Tricore Customer Care LLC 将我的个人信息用于招聘评估，保存期限 24 个月，可随时申请删除。",
+      "我同意 Avelthorne People Group 将我的个人信息用于招聘评估，保存期限 24 个月，可随时申请删除。",
     submitConfirmTitle: "确认提交申请？",
     submitConfirmDescription:
       "请确认要将此申请发送给该职位。选择返回仍可继续修改信息。",

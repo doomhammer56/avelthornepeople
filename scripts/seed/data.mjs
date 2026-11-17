@@ -1,4 +1,4 @@
-// Maintained starting vacancies for Tricore Customer Care LLC's three existing office cities.
+// Maintained starting vacancies for Avelthorne People Group's three existing office cities.
 // Stable slugs identify seed records; database IDs are allocated on insertion.
 export const departments = [
   { code: "CUSTOMER_OPERATIONS", en: "Customer Operations", zh: "客户运营" },

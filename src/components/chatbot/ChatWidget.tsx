@@ -12,8 +12,8 @@ type Props = {
 };
 
 const WELCOME: Record<string, string> = {
-  en: "Hello! 👋 I'm the Tricore Customer Care LLC hiring assistant. I can answer questions about this role, check if you qualify, and help you schedule your next step. How can I help you today?",
-  zh: "您好！👋 我是 Tricore Customer Care LLC 的招聘助手。我可以解答您关于职位的问题，确认资格条件，并协助您安排下一步。请问我可以怎么帮助您？",
+  en: "Hello! 👋 I'm the Avelthorne People Group hiring assistant. I can answer questions about this role, check if you qualify, and help you schedule your next step. How can I help you today?",
+  zh: "您好！👋 我是 Avelthorne People Group 的招聘助手。我可以解答您关于职位的问题，确认资格条件，并协助您安排下一步。请问我可以怎么帮助您？",
 };
 
 const PLACEHOLDER: Record<string, string> = {
@@ -164,7 +164,7 @@ export function ChatWidget({ job, lang = "en" }: Props) {
                 Hiring Assistant
               </p>
               <p className="text-xs" style={{ color: "#b79761" }}>
-                Tricore Customer Care LLC
+                Avelthorne People Group
               </p>
             </div>
             <button

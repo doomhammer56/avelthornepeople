@@ -47,7 +47,7 @@ export async function createXlsx(
 ) {
   const ExcelJS = (await import("exceljs")).default;
   const workbook = new ExcelJS.Workbook();
-  workbook.creator = "Tricore Customer Care LLC";
+  workbook.creator = "Avelthorne People Group";
   workbook.created = new Date();
   const sheet = workbook.addWorksheet(
     sheetName.replace(/[\\/*?:\[\]]/g, " ").slice(0, 31) || "Report",
@@ -88,7 +88,7 @@ export async function createXlsx(
     `${t.records}: ${rows.length}`,
   ].join(" | ");
   const heading = [
-    "TRICORE CUSTOMER CARE LLC",
+    "AVELTHORNE PEOPLE GROUP",
     title,
     `${t.generated}: ${generated} (${timeZone})`,
     summary,
@@ -181,7 +181,7 @@ export async function createXlsx(
     from: { row: 6, column: 1 },
     to: { row: Math.max(6, sheet.rowCount), column: headers.length },
   };
-  sheet.headerFooter.oddFooter = `&LTricore Customer Care LLC - ${t.internal}&R${t.page} &P ${t.of} &N`;
+  sheet.headerFooter.oddFooter = `&LAvelthorne People Group - ${t.internal}&R${t.page} &P ${t.of} &N`;
   const buffer = await workbook.xlsx.writeBuffer();
   return new Blob([buffer], {
     type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
@@ -208,7 +208,7 @@ let fontData: Promise<string> | null = null;
 // Load the licensed bilingual font only when a PDF is actually requested.
 // A failed download clears the cache so the user can retry without reloading the page.
 function pdfFont() {
-  fontData ??= fetch("/fonts/TricoreExport-Regular.ttf", {
+  fontData ??= fetch("/fonts/AvelthorneExport-Regular.ttf", {
     cache: "force-cache",
     signal: AbortSignal.timeout(60000),
   })
@@ -248,17 +248,17 @@ export async function createPdf(
     compress: true,
     putOnlyUsedFonts: true,
   });
-  doc.addFileToVFS("TricoreExport-Regular.ttf", font);
+  doc.addFileToVFS("AvelthorneExport-Regular.ttf", font);
   doc.addFont(
-    "TricoreExport-Regular.ttf",
-    "TricoreExport",
+    "AvelthorneExport-Regular.ttf",
+    "AvelthorneExport",
     "normal",
   );
-  doc.setFont("TricoreExport", "normal");
+  doc.setFont("AvelthorneExport", "normal");
   doc.setProperties({
     title,
-    author: "Tricore Customer Care LLC",
-    creator: "Tricore Customer Care LLC Careers",
+    author: "Avelthorne People Group",
+    creator: "Avelthorne People Group Careers",
     subject: "Applications report",
   });
   const locale = report?.locale ?? "en",
@@ -286,7 +286,7 @@ export async function createPdf(
     rowPageBreak: "avoid",
     showHead: "everyPage",
     styles: {
-      font: "TricoreExport",
+      font: "AvelthorneExport",
       fontStyle: "normal",
       fontSize: 7.8,
       cellPadding: 2.5,
@@ -309,7 +309,7 @@ export async function createPdf(
         )
       : {},
     willDrawPage() {
-      doc.setFont("TricoreExport", "normal");
+      doc.setFont("AvelthorneExport", "normal");
       doc.setFillColor("#" + colors.accent);
       doc.rect(14, 11, 8, 8, "F");
       doc.setTextColor("#" + colors.white);
@@ -317,7 +317,7 @@ export async function createPdf(
       doc.text("T", 16, 17);
       doc.setTextColor("#" + colors.ink);
       doc.setFontSize(12);
-      doc.text("TRICORE CUSTOMER CARE LLC", 26, 17);
+      doc.text("AVELTHORNE PEOPLE GROUP", 26, 17);
       doc.setTextColor("#" + colors.secondary);
       doc.setFontSize(7.5);
       doc.text(`${t.generated}: ${generated}`, width - 14, 14, {
@@ -348,12 +348,12 @@ export async function createPdf(
   const pages = doc.getNumberOfPages();
   for (let page = 1; page <= pages; page++) {
     doc.setPage(page);
-    doc.setFont("TricoreExport", "normal");
+    doc.setFont("AvelthorneExport", "normal");
     doc.setDrawColor("#" + colors.border);
     doc.line(14, height - 13, width - 14, height - 13);
     doc.setFontSize(7);
     doc.setTextColor("#" + colors.secondary);
-    doc.text(`Tricore Customer Care LLC - ${t.internal}`, 14, height - 8);
+    doc.text(`Avelthorne People Group - ${t.internal}`, 14, height - 8);
     doc.text(`${t.page} ${page} ${t.of} ${pages}`, width - 14, height - 8, {
       align: "right",
     });

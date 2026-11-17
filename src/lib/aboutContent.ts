@@ -20,7 +20,7 @@ export const aboutContent: Record<Locale, AboutContent> = {
     eyebrow: "About Us",
     title: "Ten Years Focused On Operations.",
     introduction:
-      "Tricore Customer Care LLC brings together people, expertise and opportunity to support the work we do and the teams we build.",
+      "Avelthorne People Group brings together people, expertise and opportunity to support the work we do and the teams we build.",
     missionEyebrow: "Mission & Vision",
     mission: [
       {
@@ -54,7 +54,7 @@ export const aboutContent: Record<Locale, AboutContent> = {
     eyebrow: "关于我们",
     title: "专注运营服务十年。",
     introduction:
-      "Tricore Customer Care LLC 汇聚人才、专业与机遇，支撑我们所做的工作与所组建的团队。",
+      "Avelthorne People Group 汇聚人才、专业与机遇，支撑我们所做的工作与所组建的团队。",
     missionEyebrow: "使命与愿景",
     mission: [
       {

@@ -23,7 +23,7 @@ export async function buildJobImportTemplate(
 ): Promise<ArrayBuffer> {
   const ExcelJS = (await import("exceljs")).default;
   const workbook = new ExcelJS.Workbook();
-  workbook.creator = "Tricore Customer Care LLC";
+  workbook.creator = "Avelthorne People Group";
   workbook.created = new Date();
 
   const jobs = workbook.addWorksheet(templateSheets.jobs, {

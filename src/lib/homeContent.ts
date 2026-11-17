@@ -2,7 +2,7 @@
 // Explicit text preserves acronyms and leaves Chinese and body copy unchanged.
 export const homeContent = {
   en: {
-    brand: "Tricore Customer Care LLC",
+    brand: "Avelthorne People Group",
     nav: ["Home", "About", "Services", "Careers", "Contact"],
     cta_jobs: "View Jobs",
     cta_about: "About Us",
@@ -44,7 +44,7 @@ export const homeContent = {
     about_eyebrow: "About",
     about_h: "Our Company",
     about_p1:
-      "Tricore Customer Care LLC brings together people, expertise and opportunity to support the work we do and the teams we build.",
+      "Avelthorne People Group brings together people, expertise and opportunity to support the work we do and the teams we build.",
     about_p2: "",
     more_about: "Learn More",
     values_eyebrow: "Culture",
@@ -64,7 +64,7 @@ export const homeContent = {
     careers_eyebrow: "Careers",
     careers_h: "Join Our Team",
     careers_p:
-      "Build your career with Tricore Customer Care LLC. Explore opportunities across our key areas of work.",
+      "Build your career with Avelthorne People Group. Explore opportunities across our key areas of work.",
     careers_areas: [
       { label: "Customer Operations", filterValue: "Customer Operations" },
       { label: "Risk & Compliance", filterValue: "Risk & Compliance" },
@@ -72,7 +72,7 @@ export const homeContent = {
     ],
     locations_h: "Connect With Us",
     locations_p:
-      "Get in touch to learn more about Tricore Customer Care LLC.",
+      "Get in touch to learn more about Avelthorne People Group.",
     locations_cta: "Contact",
     offices_h: "Office Cities",
     offices: [
@@ -118,7 +118,7 @@ export const homeContent = {
     icp: "All rights reserved",
   },
   zh: {
-    brand: "Tricore Customer Care LLC",
+    brand: "Avelthorne People Group",
     nav: ["首页", "关于我们", "业务领域", "加入我们", "联系我们"],
     cta_jobs: "查看职位",
     cta_about: "关于我们",
@@ -159,7 +159,7 @@ export const homeContent = {
     about_eyebrow: "关于",
     about_h: "我们的公司",
     about_p1:
-      "Tricore Customer Care LLC 汇聚人才、专业与机遇，支撑我们所做的工作与所组建的团队。",
+      "Avelthorne People Group 汇聚人才、专业与机遇，支撑我们所做的工作与所组建的团队。",
     about_p2: "",
     more_about: "了解更多",
     values_eyebrow: "企业文化",
@@ -173,14 +173,14 @@ export const homeContent = {
     careers_eyebrow: "加入我们",
     careers_h: "加入我们的团队",
     careers_p:
-      "与 Tricore Customer Care LLC 一起发展职业生涯。探索我们核心业务领域的机会。",
+      "与 Avelthorne People Group 一起发展职业生涯。探索我们核心业务领域的机会。",
     careers_areas: [
       { label: "客户运营", filterValue: "Customer Operations" },
       { label: "风控与合规", filterValue: "Risk & Compliance" },
       { label: "技术服务", filterValue: "Technology" },
     ],
     locations_h: "与我们联系",
-    locations_p: "欢迎联系，进一步了解 Tricore Customer Care LLC。",
+    locations_p: "欢迎联系，进一步了解 Avelthorne People Group。",
     locations_cta: "联系我们",
     offices_h: "办公城市",
     offices: [

@@ -127,7 +127,7 @@ export function adminLanguageHref(href: string, lang: AdminLang) {
 }
 
 // One title per nav destination, shown in the top bar instead of a static
-// "Tricore Customer Care LLC" breadcrumb that never changed between screens.
+// "Avelthorne People Group" breadcrumb that never changed between screens.
 export function pageTitle(pathname: string, lang: AdminLang): string {
   for (const group of adminNavGroups)
     for (const item of group.items)

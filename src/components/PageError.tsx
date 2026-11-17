@@ -24,8 +24,8 @@ export function PageError({ retry }: { retry: () => void }) {
     <div className={publicSiteClass} data-public-site>
       <title>
         {lang === "zh"
-          ? "页面暂时不可用 | Tricore Customer Care LLC"
-          : "Page unavailable | Tricore Customer Care LLC"}
+          ? "页面暂时不可用 | Avelthorne People Group"
+          : "Page unavailable | Avelthorne People Group"}
       </title>
       <meta name="robots" content="noindex" />
       <StatusPanel

@@ -3,7 +3,7 @@ import "server-only";
 type EmailLocale = "en" | "zh";
 type Email = { subject: string; html: string; text: string };
 
-const brand = "Tricore Customer Care LLC";
+const brand = "Avelthorne People Group";
 const accent = "#55687a";
 
 // Shared envelope for every transactional email: a plain white card with the

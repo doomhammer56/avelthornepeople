@@ -34,7 +34,7 @@ function staffLayout(
           <tr>
             <td align="center" style="padding-bottom:24px;">
               <img src="${logoUrl}" width="44" height="44" alt="" style="display:block;border-radius:8px;margin:0 auto 10px;" />
-              <span style="display:block;font-size:11px;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;color:#17545b;">Tricore Customer Care LLC</span>
+              <span style="display:block;font-size:11px;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;color:#17545b;">Avelthorne People Group</span>
             </td>
           </tr>
 
@@ -114,9 +114,9 @@ export function staffPasswordResetEmail(
         origin,
         "重置您的员工账号密码",
         body,
-        `Tricore Customer Care LLC 员工控制台 · 此邮件发送至 ${safeEmail}`,
+        `Avelthorne People Group 员工控制台 · 此邮件发送至 ${safeEmail}`,
       ),
-      text: `您好，\n\n管理员已为您的员工账号发起了密码重置请求。请访问以下链接设置新密码（24小时内有效，仅可使用一次）：\n\n${resetUrl}\n\n如非本人操作，请忽略此邮件。\n\nTricore Customer Care LLC 员工控制台`,
+      text: `您好，\n\n管理员已为您的员工账号发起了密码重置请求。请访问以下链接设置新密码（24小时内有效，仅可使用一次）：\n\n${resetUrl}\n\n如非本人操作，请忽略此邮件。\n\nAvelthorne People Group 员工控制台`,
     };
   }
 
@@ -133,9 +133,9 @@ export function staffPasswordResetEmail(
       origin,
       "Reset your staff account password",
       body,
-      `Tricore Customer Care LLC Staff Console · This email was sent to ${safeEmail}`,
+      `Avelthorne People Group Staff Console · This email was sent to ${safeEmail}`,
     ),
-    text: `Hi,\n\nAn administrator has requested a password reset for your staff account. Visit the link below to choose a new password (valid for 24 hours, single use only):\n\n${resetUrl}\n\nIf you didn't expect this, you can ignore this email.\n\nTricore Customer Care LLC Staff Console`,
+    text: `Hi,\n\nAn administrator has requested a password reset for your staff account. Visit the link below to choose a new password (valid for 24 hours, single use only):\n\n${resetUrl}\n\nIf you didn't expect this, you can ignore this email.\n\nAvelthorne People Group Staff Console`,
   };
 }
 
@@ -153,7 +153,7 @@ export function staffInviteEmail(
   if (locale === "zh") {
     const body =
       p(`${safeName}，您好，`) +
-      p("您已被邀请加入 Tricore Customer Care LLC 员工控制台。请点击下方按钮设置登录密码。此链接有效时间有限，且只能使用一次。") +
+      p("您已被邀请加入 Avelthorne People Group 员工控制台。请点击下方按钮设置登录密码。此链接有效时间有限，且只能使用一次。") +
       ctaButton("设置密码", safeUrl) +
       p(`如果您无法点击按钮，请将以下链接复制到浏览器：<br><span style="font-size:12px;color:#7c808a;word-break:break-all;">${safeUrl}</span>`) +
       p('<span style="font-size:13px;color:#7c808a;">如非本人预期，请忽略此邮件，或联系系统管理员。请勿将此链接分享给他人。</span>');
@@ -163,15 +163,15 @@ export function staffInviteEmail(
         origin,
         "您已被邀请加入员工控制台",
         body,
-        `Tricore Customer Care LLC 员工控制台 · 此邮件发送至 ${safeEmail}`,
+        `Avelthorne People Group 员工控制台 · 此邮件发送至 ${safeEmail}`,
       ),
-      text: `${displayName}，您好，\n\n您已被邀请加入 Tricore Customer Care LLC 员工控制台。请访问以下链接设置密码（有效时间有限，仅可使用一次）：\n\n${setupUrl}\n\n如非本人预期，请忽略此邮件。\n\nTricore Customer Care LLC 员工控制台`,
+      text: `${displayName}，您好，\n\n您已被邀请加入 Avelthorne People Group 员工控制台。请访问以下链接设置密码（有效时间有限，仅可使用一次）：\n\n${setupUrl}\n\n如非本人预期，请忽略此邮件。\n\nAvelthorne People Group 员工控制台`,
     };
   }
 
   const body =
     p(`Hi ${safeName},`) +
-    p("You have been invited to the Tricore Customer Care LLC staff console. Click the button below to choose your password. This link is valid for a limited time and can only be used once.") +
+    p("You have been invited to the Avelthorne People Group staff console. Click the button below to choose your password. This link is valid for a limited time and can only be used once.") +
     ctaButton("Set up password", safeUrl) +
     p(`If the button doesn't work, copy this link into your browser:<br><span style="font-size:12px;color:#7c808a;word-break:break-all;">${safeUrl}</span>`) +
     p('<span style="font-size:13px;color:#7c808a;">If you weren\'t expecting this, you can ignore this email or contact your system administrator. Do not share this link.</span>');
@@ -182,8 +182,8 @@ export function staffInviteEmail(
       origin,
       "You've been invited to the staff console",
       body,
-      `Tricore Customer Care LLC Staff Console · This email was sent to ${safeEmail}`,
+      `Avelthorne People Group Staff Console · This email was sent to ${safeEmail}`,
     ),
-    text: `Hi ${displayName},\n\nYou have been invited to the Tricore Customer Care LLC staff console. Visit the link below to choose your password (valid for a limited time, single use only):\n\n${setupUrl}\n\nIf you weren't expecting this, you can ignore this email.\n\nTricore Customer Care LLC Staff Console`,
+    text: `Hi ${displayName},\n\nYou have been invited to the Avelthorne People Group staff console. Visit the link below to choose your password (valid for a limited time, single use only):\n\n${setupUrl}\n\nIf you weren't expecting this, you can ignore this email.\n\nAvelthorne People Group Staff Console`,
   };
 }

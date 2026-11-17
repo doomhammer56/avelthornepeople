@@ -10,11 +10,11 @@ export const accountContent = {
     password: "Password",
     confirm: "Confirm Password",
     loginPrompt: "Already Have An Account?",
-    signupPrompt: "New To Tricore Customer Care LLC?",
+    signupPrompt: "New To Avelthorne People Group?",
     unavailable:
       "Account access is not available yet. Sign-up and login will open once authentication is connected.",
     noScript: "Enable JavaScript to review the account form.",
-    introduction: "Explore opportunities at Tricore Customer Care LLC.",
+    introduction: "Explore opportunities at Avelthorne People Group.",
   },
   zh: {
     eyebrow: "求职者账户",
@@ -25,10 +25,10 @@ export const accountContent = {
     password: "密码",
     confirm: "确认密码",
     loginPrompt: "已有账户？",
-    signupPrompt: "首次访问 Tricore Customer Care LLC？",
+    signupPrompt: "首次访问 Avelthorne People Group？",
     unavailable: "账户功能暂未开放。身份验证服务接入后，即可注册和登录。",
     noScript: "请启用 JavaScript 以查看账户表单。",
-    introduction: "探索 Tricore Customer Care LLC 的职业机会。",
+    introduction: "探索 Avelthorne People Group 的职业机会。",
   },
 };
 // Pause candidate accounts until their product scope is approved.

@@ -13,10 +13,10 @@ const hostGrotesk = Host_Grotesk({
 });
 
 // Resolve every relative URL (canonical, OG, sitemap) against the real origin.
-// Pages already append "| Tricore Customer Care LLC" themselves, so no title template here.
+// Pages already append "| Avelthorne People Group" themselves, so no title template here.
 export const metadata: Metadata = {
   metadataBase: getSiteUrl(),
-  title: "Tricore Customer Care LLC",
+  title: "Avelthorne People Group",
   description:
     "Customer operations, risk & compliance, and technology services.",
   robots: { index: true, follow: true },
