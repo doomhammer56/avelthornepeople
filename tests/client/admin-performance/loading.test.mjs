@@ -19,8 +19,14 @@ function loadComponent(name, mocks) {
 
 // Presentational shadcn primitives are irrelevant to these behavior tests; the
 // component under test only needs something renderable for each import.
-const passthrough = (tag) => (props) =>
-  React.createElement(tag, { className: props.className, role: props.role }, props.children);
+const passthrough = (tag) =>
+  function Passthrough(props) {
+    return React.createElement(
+      tag,
+      { className: props.className, role: props.role },
+      props.children,
+    );
+  };
 const uiStubs = {
   "@/components/ui/button": { Button: passthrough("button") },
   "@/components/ui/card": { Card: passthrough("div") },

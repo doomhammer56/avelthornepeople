@@ -161,18 +161,24 @@ export function ApplicationDrawer({
   }, [receipt]);
 
   // New vacancy: discard any in-progress draft from another role.
+  // React state is reset while rendering (the supported way to reset state when a
+  // prop changes); refs, the form and the Turnstile widget are reset in the effect.
+  const [draftJobId, setDraftJobId] = useState(jobId);
+  if (draftJobId !== jobId) {
+    setDraftJobId(jobId);
+    setReceipt(null);
+    setFailure(null);
+    setConfirmOpen(false);
+    setConfirmSubmitting(false);
+    setCaptchaToken("");
+  }
   useEffect(() => {
     request.current?.abort();
     request.current = null;
     attemptKey.current = null;
     reset();
     if (fileInput.current) fileInput.current.value = "";
-    setReceipt(null);
-    setFailure(null);
     pendingValues.current = null;
-    setConfirmOpen(false);
-    setConfirmSubmitting(false);
-    setCaptchaToken("");
     if (turnstileWidget.current && window.turnstile) {
       window.turnstile.reset(turnstileWidget.current);
       turnstileWidget.current = undefined;
@@ -180,18 +186,9 @@ export function ApplicationDrawer({
   }, [jobId, reset]);
 
   // Dialog content mounts after open; defer Turnstile render so the host element exists.
+  // The ready flag is cleared in cleanup, so it is false whenever the dialog is closed.
   useEffect(() => {
-    if (!confirmOpen) {
-      setTurnstileMountReady(false);
-      setCaptchaRequiredFlash(false);
-      return;
-    }
-    setCaptchaRequiredFlash(false);
-    if (!turnstileSiteKey) {
-      setTurnstileMountReady(true);
-      return;
-    }
-    setTurnstileMountReady(false);
+    if (!confirmOpen || !turnstileSiteKey) return;
     let cancelled = false;
     let innerFrame = 0;
     const outerFrame = requestAnimationFrame(() => {
@@ -203,6 +200,7 @@ export function ApplicationDrawer({
       cancelled = true;
       cancelAnimationFrame(outerFrame);
       cancelAnimationFrame(innerFrame);
+      setTurnstileMountReady(false);
     };
   }, [confirmOpen, turnstileSiteKey]);
 
@@ -227,6 +225,7 @@ export function ApplicationDrawer({
       language: locale === "zh" ? "zh-CN" : "en",
       callback: (token: string) => {
         setCaptchaToken(token);
+        setCaptchaRequiredFlash(false);
         setConfirmCaptchaError(false);
       },
       "expired-callback": () => setCaptchaToken(""),
@@ -242,10 +241,6 @@ export function ApplicationDrawer({
       }
     };
   }, [confirmOpen, turnstileMountReady, turnstileLoaded, turnstileSiteKey, locale]);
-
-  useEffect(() => {
-    if (captchaToken) setCaptchaRequiredFlash(false);
-  }, [captchaToken]);
 
   const changeOpen = (next: boolean) => {
     if (!next) {
@@ -851,9 +846,7 @@ export function ApplicationDrawer({
           </Button>
           <Button
             type="button"
-            disabled={
-              confirmSubmitting || isSubmitting || !pendingValues.current
-            }
+            disabled={confirmSubmitting || isSubmitting}
             onClick={() => {
               const values = pendingValues.current;
               if (!values || !endpoints) return;

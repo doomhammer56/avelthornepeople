@@ -95,6 +95,7 @@ function drawerFixture(locale, initialFailure = null) {
     "@/lib/applicationForm": transport,
     "@/lib/applicationFeedback": feedback,
     "@/lib/phoneNumber": phone,
+    "@/lib/publicSite": { publicSiteClass: "public-site" },
     "@/lib/applicationPhoneCountries": {
       getApplicationPhoneCountryOptions: () => [
         { country: "PH", name: "Philippines", code: "63" },
@@ -123,14 +124,14 @@ function drawerFixture(locale, initialFailure = null) {
       },
     },
     "@/components/ui/input": {
-      Input: React.forwardRef((props, ref) =>
-        React.createElement("input", { ...props, ref }),
-      ),
+      Input: React.forwardRef(function Input(props, ref) {
+        return React.createElement("input", { ...props, ref });
+      }),
     },
     "@/components/ui/textarea": {
-      Textarea: React.forwardRef((props, ref) =>
-        React.createElement("textarea", { ...props, ref }),
-      ),
+      Textarea: React.forwardRef(function Textarea(props, ref) {
+        return React.createElement("textarea", { ...props, ref });
+      }),
     },
     "@/components/ui/label": {
       Label({ className, htmlFor, children, ...rest }) {
