@@ -1,0 +1,268 @@
+/* Admin console theme (handoff's "Mist" palette) — imported only by the
+   console layout, so these tokens never ship in the public-site bundle. */
+.admin-navigation-progress {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 10000;
+  height: 3px;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0;
+  background: rgba(79, 111, 148, 0.14);
+}
+.admin-navigation-progress[data-pending="true"] {
+  animation: admin-progress-appear 0s 120ms forwards;
+}
+.admin-navigation-progress span {
+  display: block;
+  height: 100%;
+  width: 35%;
+  background: #4f6f94;
+  box-shadow: 0 0 8px rgba(79, 111, 148, 0.4);
+}
+.admin-navigation-progress[data-pending="true"] span {
+  animation: admin-progress-slide 1.3s ease-in-out infinite;
+}
+@keyframes admin-progress-appear {
+  to {
+    opacity: 1;
+  }
+}
+@keyframes admin-progress-slide {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(390%);
+  }
+}
+.admin-session-content:not([hidden]) {
+  display: contents;
+}
+.admin-session-content[hidden] {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .admin-navigation-progress[data-pending="true"] {
+              animation: none;
+              opacity: 1;
+            }
+  .admin-navigation-progress[data-pending="true"] span {
+              animation: none;
+              width: 100%;
+            }
+}
+/* The tokens below live on the shell AND on <body> while the console is
+   mounted (AdminShell sets body[data-admin-theme]). Portalled shadcn
+   popups (dialogs, selects, menus, tooltips) render under <body>, so they
+   pick up the console palette and dark mode without per-component wrappers. */
+.admin-shell,
+body[data-admin-theme] {
+  --admin-accent: #4f6f94;
+  --admin-accent-press: #415c7b;
+  --admin-accent-on: #ffffff;
+  --admin-soft: #e9eef4;
+  --admin-paper: #f4f5f6;
+  --admin-paper-2: #ffffff;
+  --admin-paper-3: #f2f1ec;
+  --admin-ink: #33363d;
+  --admin-ink-2: #565a63;
+  --admin-ink-3: #7c808a;
+  --admin-border: rgba(51, 54, 61, 0.12);
+  --admin-border-strong: rgba(51, 54, 61, 0.24);
+  --admin-scrim: rgba(51, 54, 61, 0.35);
+  --admin-tone-gray-bg: #f0f1f2;
+  --admin-tone-gray-fg: #6b6f78;
+  --admin-tone-amber-bg: #f5efe4;
+  --admin-tone-amber-fg: #7a5f35;
+  --admin-tone-violet-bg: #efeef3;
+  --admin-tone-violet-fg: #5e5873;
+  --admin-tone-rose-bg: #f6eded;
+  --admin-tone-rose-fg: #8e5a5a;
+  --admin-tone-green-bg: #e7f1ea;
+  --admin-tone-green-fg: #3d6b4b;
+  --admin-chart-1: #4f6f94;
+  --admin-chart-2: #b08a4f;
+  --admin-chart-3: #7f74a6;
+  --admin-chart-4: #b76f6f;
+  --admin-chart-5: #5f9674;
+  /* The handoff's own spec is sharp (2px radius everywhere); this console
+     intentionally softens that for a less severe, more modern feel. Every
+     hand-rolled rounded corner reads from this one token. */
+  --admin-radius: 10px;
+  /* Also rounds every shadcn/base-ui primitive (Button, Dialog, DropdownMenu,
+     Table, Sidebar, ...), which otherwise inherits the public site's flat 2px. */
+  --radius: var(--admin-radius);
+  /* Points shadcn's own Sidebar component (bg-sidebar, text-sidebar-*, etc.)
+     at this theme's Mist palette instead of the public site's Slate one.
+     These read the --admin-* tokens directly, so dark mode needs no
+     separate copy below — it already flips with the --admin-* values. */
+  --sidebar: var(--admin-paper-2);
+  --sidebar-foreground: var(--admin-ink);
+  --sidebar-primary: var(--admin-accent);
+  --sidebar-primary-foreground: var(--admin-accent-on);
+  --sidebar-accent: var(--admin-soft);
+  --sidebar-accent-foreground: var(--admin-ink);
+  --sidebar-border: var(--admin-border);
+  --sidebar-ring: var(--admin-accent);
+  /* Same bridge for every other generic shadcn/base-ui primitive used in the
+     console (Table, DropdownMenu, Dialog, Button, Select, ...), so adding
+     an official component here never pulls in the public site's Slate
+     theme by accident. */
+  --background: var(--admin-paper);
+  --foreground: var(--admin-ink);
+  --card: var(--admin-paper-2);
+  --card-foreground: var(--admin-ink);
+  --popover: var(--admin-paper-2);
+  --popover-foreground: var(--admin-ink);
+  --primary: var(--admin-accent);
+  --primary-foreground: var(--admin-accent-on);
+  --secondary: var(--admin-soft);
+  --secondary-foreground: var(--admin-ink);
+  --muted: var(--admin-paper-3);
+  --muted-foreground: var(--admin-ink-3);
+  --accent: var(--admin-soft);
+  --accent-foreground: var(--admin-ink);
+  --destructive: var(--admin-tone-rose-fg);
+  --border: var(--admin-border);
+  --input: var(--admin-border-strong);
+  --ring: var(--admin-accent);
+  /* Console density. Button, Input, Textarea and Select read these, falling
+     back to the roomier public-site sizes when the variables are absent. */
+  --button-h: 2.25rem;
+  --control-h: 2.5rem;
+  /* Status tones for <Badge tone="...">, mapped from the console palette. */
+  --tone-gray-bg: var(--admin-tone-gray-bg);
+  --tone-gray-fg: var(--admin-tone-gray-fg);
+  --tone-amber-bg: var(--admin-tone-amber-bg);
+  --tone-amber-fg: var(--admin-tone-amber-fg);
+  --tone-violet-bg: var(--admin-tone-violet-bg);
+  --tone-violet-fg: var(--admin-tone-violet-fg);
+  --tone-rose-bg: var(--admin-tone-rose-bg);
+  --tone-rose-fg: var(--admin-tone-rose-fg);
+  --tone-green-bg: var(--admin-tone-green-bg);
+  --tone-green-fg: var(--admin-tone-green-fg);
+  --tone-accent-bg: var(--admin-soft);
+  --tone-accent-fg: var(--admin-accent-press);
+  --chart-1: var(--admin-chart-1);
+  --chart-2: var(--admin-chart-2);
+  --chart-3: var(--admin-chart-3);
+  --chart-4: var(--admin-chart-4);
+  --chart-5: var(--admin-chart-5);
+  /* shadcn primitives still reference the public brand tokens (Button's
+     default variant, Input focus ring, ...); point them at the console accent. */
+  --brand-teal: var(--admin-accent);
+  --brand-teal-hover: var(--admin-accent-press);
+  --brand-navy: var(--admin-ink);
+  --brand-navy-light: var(--admin-ink-2);
+  --brand-gold: var(--admin-tone-amber-fg);
+}
+.admin-shell {
+  min-height: 100vh;
+  background: var(--admin-paper);
+  color: var(--admin-ink);
+  font-family:
+    var(--font-hanken), var(--font-chinese), "PingFang SC", sans-serif;
+  font-size: 14px;
+}
+/* Dark-mode values are the exact color-mix formulas from the handoff, computed
+   ahead of time so the toggle only swaps a data attribute, not CSS functions. */
+.admin-shell[data-admin-theme="dark"],
+body[data-admin-theme="dark"] {
+  --admin-accent: #8ba2be;
+  --admin-accent-press: #a2b5cb;
+  --admin-accent-on: #11151b;
+  --admin-soft: #24303d;
+  --admin-paper: #13161b;
+  --admin-paper-2: #1b1f26;
+  --admin-paper-3: #222730;
+  --admin-ink: #e3e6eb;
+  --admin-ink-2: #b4bac4;
+  --admin-ink-3: #868d99;
+  --admin-border: rgba(227, 230, 235, 0.09);
+  --admin-border-strong: rgba(227, 230, 235, 0.18);
+  --admin-scrim: rgba(0, 0, 0, 0.55);
+  --admin-tone-gray-bg: #272c34;
+  --admin-tone-gray-fg: #a9afba;
+  --admin-tone-amber-bg: #3a3224;
+  --admin-tone-amber-fg: #e0c38e;
+  --admin-tone-violet-bg: #2e2b3d;
+  --admin-tone-violet-fg: #bdb4dc;
+  --admin-tone-rose-bg: #3b2a2c;
+  --admin-tone-rose-fg: #e2a9a9;
+  --admin-tone-green-bg: #22302a;
+  --admin-tone-green-fg: #a8d3b4;
+  --admin-chart-1: #8ba2be;
+  --admin-chart-2: #e0c38e;
+  --admin-chart-3: #bdb4dc;
+  --admin-chart-4: #e2a9a9;
+  --admin-chart-5: #86c09b;
+  color-scheme: dark;
+}
+/* Page frame. The sidebar, topbar and every control inside are shadcn
+   components styled with Tailwind; only the frame and the live preview below
+   need custom CSS. */
+.admin-content {
+  flex: 1;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 1360px;
+  width: 100%;
+}
+@media (max-width: 640px) {
+  .admin-content {
+    padding: 16px;
+  }
+}
+/* Give Content the available width and reclaim space from the page header.
+   These tighter gutters apply only to the visual editor. */
+.admin-content-editor {
+  max-width: none;
+  padding: 8px 12px;
+  gap: 8px;
+  --content-editor-height: max(520px, calc(100dvh - 150px));
+}
+
+/* Live website preview used by the Content editor: a scaled iframe-like
+   canvas that scrolls horizontally inside itself instead of the page. */
+.admin-visual-canvas {
+  min-width: 0;
+  overflow: auto;
+  padding: 12px;
+  background: var(--admin-paper-3);
+  border: 1px solid var(--admin-border);
+  border-radius: var(--admin-radius);
+}
+.admin-content-editor .admin-visual-canvas {
+  padding: 4px;
+}
+.admin-visual-frame {
+  display: block;
+  width: 1200px;
+  height: calc(min(76vh, 900px) / var(--content-preview-scale, 1));
+  min-height: calc(520px / var(--content-preview-scale, 1));
+  zoom: var(--content-preview-scale, 1);
+  border: 0;
+  margin: 0 auto;
+  background: #faf9f6;
+}
+.admin-content-editor .admin-visual-frame {
+  height: calc(var(--content-editor-height) / var(--content-preview-scale, 1));
+}
+.admin-visual-canvas[data-mobile="true"] .admin-visual-frame {
+  width: 390px;
+}
+@media (max-width: 600px) {
+  .admin-visual-canvas {
+    padding: 8px;
+  }
+}
+
+/* Filter forms work as plain GET forms before hydration; once the instant
+   filters are active the submit button is redundant. */
+.instant-filter-form[data-enhanced="true"] [data-filter-submit] {
+  display: none;
+}

@@ -1,0 +1,77 @@
+import type { AdminLang } from "./nav";
+
+const content = {
+  en: {
+    title: "Audit log",
+    subtitle:
+      "Who changed what, and when. Personal details are excluded from stored audit events.",
+    columns: {
+      time: "Time",
+      actor: "Actor",
+      action: "Action",
+      object: "Object",
+    },
+    details: "Details",
+    request: "Request ID",
+    system: "System",
+    staff: "Staff member",
+    references: "Technical references",
+    currentLabels:
+      "Names and titles reflect the current records. Original identifiers remain in the details.",
+    zone: "Time zone",
+    empty: "No matching audit events.",
+    unavailable:
+      "Legacy details withheld because they do not match the safe audit contract.",
+    filter: "Filter",
+    clear: "Clear filters",
+    all: "All object types",
+    anyAction: "All actions",
+    anyActor: "Anyone",
+    selectedActor: "Selected account",
+    advanced: "Advanced filters",
+    actor: "Actor",
+    object: "Object UUID",
+    action: "Action",
+    previous: "Previous",
+    next: "Next",
+    page: "Page",
+    invalid: "Invalid audit filters.",
+  },
+  zh: {
+    title: "操作日志",
+    subtitle: "查看谁在何时修改了什么。存储的操作记录不包含个人详细信息。",
+    columns: {
+      time: "时间",
+      actor: "操作人",
+      action: "操作",
+      object: "对象",
+    },
+    details: "详情",
+    request: "请求 ID",
+    system: "系统",
+    staff: "员工",
+    references: "技术参考信息",
+    currentLabels: "姓名和标题来自当前记录，原始标识符保留在详情中。",
+    zone: "时区",
+    empty: "没有匹配的操作记录。",
+    unavailable: "历史详情不符合安全日志规范，已隐藏。",
+    filter: "筛选",
+    clear: "清除筛选",
+    all: "所有对象类型",
+    anyAction: "所有操作",
+    anyActor: "所有人",
+    selectedActor: "所选账号",
+    advanced: "高级筛选",
+    actor: "操作人",
+    object: "对象 UUID",
+    action: "操作",
+    previous: "上一页",
+    next: "下一页",
+    page: "页",
+    invalid: "日志筛选条件无效。",
+  },
+} as const;
+export const auditLogContent: Record<
+  AdminLang,
+  typeof content.en | typeof content.zh
+> = content;

@@ -1,0 +1,10 @@
+.next/
+out/
+build/
+coverage/
+src/generated/prisma/
+package-lock.json
+docs/
+
+# Next.js maintains this file; formatting it would create recurring changes.
+AGENTS.md

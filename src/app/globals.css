@@ -1,0 +1,208 @@
+﻿@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+/* The public site toggles `.dark`; the staff console toggles
+   `data-admin-theme="dark"` (on its shell and on <body>, so portalled menus
+   and dialogs follow it too). Both drive every `dark:` utility. */
+@custom-variant dark (
+  &:is(.dark *, [data-admin-theme="dark"], [data-admin-theme="dark"] *)
+);
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-host-grotesk), var(--font-chinese), sans-serif;
+  --font-serif: var(--font-host-grotesk), var(--font-chinese), sans-serif;
+  --font-display: var(--font-host-grotesk), var(--font-chinese), sans-serif;
+  --font-body: var(--font-host-grotesk), var(--font-chinese), sans-serif;
+  --font-heading: var(--font-host-grotesk), var(--font-chinese), sans-serif;
+  --font-number: var(--font-host-grotesk), var(--font-chinese), sans-serif;
+  --color-brand-ivory: var(--brand-ivory);
+  --color-brand-navy: var(--brand-navy);
+  --color-brand-navy-light: var(--brand-navy-light);
+  --color-brand-teal: var(--brand-teal);
+  --color-brand-teal-hover: var(--brand-teal-hover);
+  --color-brand-teal-light: var(--brand-teal-light);
+  --color-brand-gold: var(--brand-gold);
+  --color-brand-gold-muted: var(--brand-gold-muted);
+  --color-brand-rule: var(--brand-rule);
+  --color-site-ink: var(--site-ink-secondary);
+  --color-site-header: var(--site-header-surface);
+  --color-site-header-light: var(--site-header-surface-light);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-tone-gray: var(--tone-gray-bg);
+  --color-tone-gray-foreground: var(--tone-gray-fg);
+  --color-tone-amber: var(--tone-amber-bg);
+  --color-tone-amber-foreground: var(--tone-amber-fg);
+  --color-tone-violet: var(--tone-violet-bg);
+  --color-tone-violet-foreground: var(--tone-violet-fg);
+  --color-tone-rose: var(--tone-rose-bg);
+  --color-tone-rose-foreground: var(--tone-rose-fg);
+  --color-tone-green: var(--tone-green-bg);
+  --color-tone-green-foreground: var(--tone-green-fg);
+  --color-tone-accent: var(--tone-accent-bg);
+  --color-tone-accent-foreground: var(--tone-accent-fg);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+/* Hero + homepage section titles — same scale as --site-page-heading-size. */
+@utility display-heading {
+  font-family: var(--font-host-grotesk), var(--font-chinese), sans-serif;
+  font-size: var(--site-page-heading-size, clamp(28px, 3vw, 40px));
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  color: var(--brand-navy);
+  text-wrap: balance;
+}
+
+/* Slate palette from the design handoff (README.md, Company Website.dc.html). */
+/* Keep these as the single source of truth — don't hand-roll new colors elsewhere. */
+:root {
+  --font-chinese: "Noto Sans SC Variable";
+  --font-hanken: var(--font-host-grotesk);
+
+  /* Brand core tokens (Tricore Customer Care LLC) */
+  --brand-ivory: #f4eee4;
+  --brand-navy: #061722;
+  --brand-navy-light: #0d283b;
+  --brand-teal: #17545b;
+  --brand-teal-hover: #124349;
+  --brand-teal-light: #eaf2f3;
+  --brand-gold: #b79761;
+  --brand-gold-muted: rgba(183, 151, 97, 0.35);
+  --brand-rule: #b79761;
+
+  /* Semantic UI tokens */
+  --background: #f4eee4; /* Rich warm ivory */
+  --foreground: #061722; /* Deep Navy */
+  --card: #ffffff;
+  --card-foreground: #061722;
+  --popover: #ffffff;
+  --popover-foreground: #061722;
+  --primary: #17545b; /* Tricore Teal */
+  --primary-foreground: #ffffff;
+  --secondary: #f3efe8; /* Warm paper / soft cream */
+  --secondary-foreground: #061722;
+  --muted: #f1eee7; /* Soft muted ivory */
+  --muted-foreground: #5c6972; /* High legibility dark slate */
+  --accent: #eaf2f3; /* Subtle teal tint */
+  --accent-foreground: #17545b;
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: rgba(6, 23, 34, 0.12); /* Crisp slate border */
+  --input: rgba(6, 23, 34, 0.24);
+  --ring: #17545b;
+  --chart-1: #17545b;
+  --chart-2: #061722;
+  --chart-3: #b79761;
+  --chart-4: #5c6972;
+  --chart-5: #36414c;
+  --radius: 0.5rem; /* 4px modern subtle radius */
+  --sidebar: #ffffff;
+  --sidebar-foreground: #061722;
+  --sidebar-primary: #17545b;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #f3efe8;
+  --sidebar-accent-foreground: #061722;
+  --sidebar-border: rgba(6, 23, 34, 0.12);
+  --sidebar-ring: #17545b;
+  /* Status tones used by Badge. The staff console re-points these at its own
+     palette (admin.css), so a status reads the same on every screen. */
+  --tone-gray-bg: #f0f1f2;
+  --tone-gray-fg: #6b6f78;
+  --tone-amber-bg: #f5efe4;
+  --tone-amber-fg: #7a5f35;
+  --tone-violet-bg: #efeef3;
+  --tone-violet-fg: #5e5873;
+  --tone-rose-bg: #f6eded;
+  --tone-rose-fg: #8e5a5a;
+  --tone-green-bg: #e7f1ea;
+  --tone-green-fg: #3d6b4b;
+  --tone-accent-bg: var(--accent);
+  --tone-accent-fg: var(--accent-foreground);
+  --site-ink-secondary: #565a63;
+  --site-header-surface: color-mix(in srgb, var(--muted) 76%, var(--site-ink-secondary));
+  --site-header-surface-light: color-mix(in srgb, var(--secondary) 85%, var(--foreground));
+  --site-page-heading-size: clamp(28px, 3vw, 40px);
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+  }
+}

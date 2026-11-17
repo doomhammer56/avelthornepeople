@@ -1,0 +1,417 @@
+generator client {
+  provider     = "prisma-client"
+  output       = "../src/generated/prisma"
+  moduleFormat = "esm"
+}
+
+datasource db {
+  provider = "postgresql"
+  schemas  = ["auth", "portal"]
+}
+
+/// Supabase-managed identity reference, excluded from Prisma migrations.
+model AuthUser {
+  id           String        @id @db.Uuid
+  staffProfile StaffProfile?
+
+  @@map("users")
+  @@schema("auth")
+}
+
+model StaffProfile {
+  id                       String            @id @db.Uuid
+  displayName              String            @map("display_name") @db.Text
+  role                     String            @default("READ_ONLY") @db.Text
+  active                   Boolean           @default(false)
+  version                  Int               @default(1)
+  createdAt                DateTime          @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt                DateTime          @default(now()) @map("updated_at") @db.Timestamptz(6)
+  authUser                 AuthUser          @relation(fields: [id], references: [id], onDelete: Restrict, onUpdate: NoAction, map: "staff_profiles_auth_user_fk")
+  ownedJobs                Job[]             @relation("JobOwner")
+  approvedJobs             Job[]             @relation("JobApprover")
+  auditLogs                AuditLog[]
+  jobImports               JobImport[]
+  publishedContent         ContentBlock[]
+  contentImages            ContentImage[]
+  assignedMessages         ContactMessage[]
+  verifiedDeletionRequests DeletionRequest[]
+  candidateLegalHolds      CandidateLegalHold[]
+
+  @@map("staff_profiles")
+  @@schema("portal")
+}
+
+model Department {
+  id      String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  code    String  @unique @db.Text
+  nameZh  String  @map("name_zh") @db.Text
+  nameEn  String? @map("name_en") @db.Text
+  active  Boolean @default(true)
+  version Int     @default(1)
+  jobs    Job[]
+
+  @@map("departments")
+  @@schema("portal")
+}
+
+model Location {
+  id          String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  code        String        @unique @db.Text
+  nameZh      String        @map("name_zh") @db.Text
+  nameEn      String?       @map("name_en") @db.Text
+  addressZh   String?       @map("address_zh") @db.Text
+  addressEn   String?       @map("address_en") @db.Text
+  countryCode String        @map("country_code") @db.Text
+  timezone    String        @db.Text
+  active      Boolean       @default(true)
+  version     Int           @default(1)
+  jobs        JobLocation[]
+
+  @@map("locations")
+  @@schema("portal")
+}
+
+model JobOption {
+  id      String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  kind    String  @db.Text
+  code    String  @db.Text
+  nameEn  String  @map("name_en") @db.Text
+  nameZh  String  @map("name_zh") @db.Text
+  active  Boolean @default(true)
+  version Int     @default(1)
+
+  @@unique([kind, code])
+  @@map("job_options")
+  @@schema("portal")
+}
+
+model Job {
+  id               String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  canonicalSlug    String        @unique @map("canonical_slug") @db.Text
+  status           String        @default("DRAFT") @db.Text
+  draftContent     Json          @map("draft_content") @db.JsonB
+  publishedContent Json?         @map("published_content") @db.JsonB
+  version          Int           @default(1)
+  publishedVersion Int?          @map("published_version")
+  settingsLocked   Boolean       @default(false) @map("settings_locked")
+  departmentId     String?       @map("department_id") @db.Uuid
+  jobType          String?       @map("job_type") @db.Text
+  experience       String?       @db.Text
+  salaryMin        Decimal?      @map("salary_min") @db.Decimal(14, 2)
+  salaryMax        Decimal?      @map("salary_max") @db.Decimal(14, 2)
+  salaryCurrency   String?       @map("salary_currency") @db.Text
+  salaryPeriod     String?       @map("salary_period") @db.Text
+  showSalary       Boolean       @default(false) @map("show_salary")
+  ownerId          String        @map("owner_id") @db.Uuid
+  approvedBy       String?       @map("approved_by") @db.Uuid
+  approvedAt       DateTime?     @map("approved_at") @db.Timestamptz(6)
+  publishAt        DateTime?     @map("publish_at") @db.Timestamptz(6)
+  closeAt          DateTime?     @map("close_at") @db.Timestamptz(6)
+  firstPublishedAt DateTime?     @map("first_published_at") @db.Timestamptz(6)
+  createdAt        DateTime      @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt        DateTime      @default(now()) @map("updated_at") @db.Timestamptz(6)
+  department       Department?   @relation(fields: [departmentId], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  owner            StaffProfile  @relation("JobOwner", fields: [ownerId], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  approver         StaffProfile? @relation("JobApprover", fields: [approvedBy], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  locations        JobLocation[]
+  applications     Application[]
+  intakeUploads    Upload[]      @relation("IntakeJobUploads")
+  dailyMetrics     DailyMetric[]
+
+  @@index([status, publishAt], map: "jobs_publish_idx")
+  @@index([status, closeAt], map: "jobs_close_idx")
+  @@index([departmentId, jobType, experience], map: "jobs_filters_idx")
+  @@index([ownerId], map: "jobs_owner_idx")
+  @@index([approvedBy], map: "jobs_approver_idx")
+  @@map("jobs")
+  @@schema("portal")
+}
+
+model JobLocation {
+  jobId      String   @map("job_id") @db.Uuid
+  locationId String   @map("location_id") @db.Uuid
+  job        Job      @relation(fields: [jobId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  location   Location @relation(fields: [locationId], references: [id], onDelete: Restrict, onUpdate: NoAction)
+
+  @@id([jobId, locationId])
+  @@index([locationId, jobId], map: "job_locations_location_idx")
+  @@map("job_locations")
+  @@schema("portal")
+}
+
+model Candidate {
+  id                  String            @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  nameEncrypted       Bytes             @map("name_encrypted") @db.ByteA
+  emailEncrypted      Bytes             @map("email_encrypted") @db.ByteA
+  phoneEncrypted      Bytes             @map("phone_encrypted") @db.ByteA
+  emailHmac           Bytes             @map("email_hmac") @db.ByteA
+  phoneHmac           Bytes             @map("phone_hmac") @db.ByteA
+  hmacKeyVersion      Int               @map("hmac_key_version")
+  deletionRequestedAt DateTime?         @map("deletion_requested_at") @db.Timestamptz(6)
+  createdAt           DateTime          @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt           DateTime          @default(now()) @map("updated_at") @db.Timestamptz(6)
+  version             Int               @default(1)
+  mergedIntoId        String?           @map("merged_into_id") @db.Uuid
+  mergedInto          Candidate?        @relation("CandidateAliases", fields: [mergedIntoId], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  aliases             Candidate[]       @relation("CandidateAliases")
+  applications        Application[]
+  deletionRequests    DeletionRequest[]
+  legalHold           CandidateLegalHold?
+
+  @@index([emailHmac, hmacKeyVersion], map: "candidates_email_idx")
+  @@index([phoneHmac, hmacKeyVersion], map: "candidates_phone_idx")
+  @@index([mergedIntoId], map: "candidates_merged_into_idx")
+  @@map("candidates")
+  @@schema("portal")
+}
+
+model Upload {
+  id                      String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  storageProvider         String        @map("storage_provider") @db.Text
+  bucket                  String        @db.Text
+  objectKey               String        @map("object_key") @db.Text
+  declaredSizeBytes       BigInt        @map("declared_size_bytes")
+  sizeBytes               BigInt?       @map("size_bytes")
+  detectedType            String?       @map("detected_type") @db.Text
+  sha256                  Bytes?        @db.ByteA
+  scanState               String        @default("PENDING") @map("scan_state") @db.Text
+  scannedAt               DateTime?     @map("scanned_at") @db.Timestamptz(6)
+  capabilityHash          Bytes         @unique @map("capability_hash") @db.ByteA
+  capabilityExpiresAt     DateTime      @map("capability_expires_at") @db.Timestamptz(6)
+  providerUploadExpiresAt DateTime?     @map("provider_upload_expires_at") @db.Timestamptz(6)
+  accessRevokedAt         DateTime?     @map("access_revoked_at") @db.Timestamptz(6)
+  intakeJobId             String?       @map("intake_job_id") @db.Uuid
+  intakeRequestId         String?       @map("intake_request_id") @db.Uuid
+  intakeJob               Job?          @relation("IntakeJobUploads", fields: [intakeJobId], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  createdAt               DateTime      @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt               DateTime      @default(now()) @map("updated_at") @db.Timestamptz(6)
+  application             Application?  @relation("ApplicationUpload")
+  cleanApplications       Application[] @relation("ApplicationCleanUpload")
+
+  @@unique([storageProvider, bucket, objectKey])
+  @@unique([id, scanState])
+  @@index([scanState, createdAt], map: "uploads_scan_idx")
+  @@map("uploads")
+  @@schema("portal")
+}
+
+model Application {
+  id                      String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  jobId                   String     @map("job_id") @db.Uuid
+  candidateId             String?    @map("candidate_id") @db.Uuid
+  cvUploadId              String     @unique @map("cv_upload_id") @db.Uuid
+  cvScanState             String?    @map("cv_scan_state") @db.Text
+  intakeState             String     @default("RECEIVED") @map("intake_state") @db.Text
+  status                  String     @default("NEW") @db.Text
+  profileEncrypted        Bytes      @map("profile_encrypted") @db.ByteA
+  coverLetterEncrypted    Bytes?     @map("cover_letter_encrypted") @db.ByteA
+  consentAt               DateTime   @map("consent_at") @db.Timestamptz(6)
+  policyVersion           String     @map("policy_version") @db.Text
+  source                  String     @db.Text
+  submissionChannel       String?    @map("submission_channel") @db.Text
+  locale                  String     @db.Text
+  duplicateCandidateMatch Boolean    @default(false) @map("duplicate_candidate_match")
+  idempotencyKey          String     @map("idempotency_key") @db.Uuid
+  payloadDigest           Bytes      @map("payload_digest") @db.ByteA
+  receiptHash             Bytes      @unique @map("receipt_hash") @db.ByteA
+  receiptExpiresAt        DateTime   @map("receipt_expires_at") @db.Timestamptz(6)
+  confirmedAt             DateTime?  @map("confirmed_at") @db.Timestamptz(6)
+  version                 Int        @default(1)
+  submittedAt             DateTime   @default(now()) @map("submitted_at") @db.Timestamptz(6)
+  /// Assigned by the database insert trigger and immutable thereafter.
+  retentionExpiresAt      DateTime   @map("retention_expires_at") @db.Timestamptz(6)
+  updatedAt               DateTime   @default(now()) @map("updated_at") @db.Timestamptz(6)
+  job                     Job        @relation(fields: [jobId], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  candidate               Candidate? @relation(fields: [candidateId], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  cvUpload                Upload     @relation("ApplicationUpload", fields: [cvUploadId], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  cleanCvUpload           Upload?    @relation("ApplicationCleanUpload", fields: [cvUploadId, cvScanState], references: [id, scanState], onDelete: Restrict, onUpdate: NoAction)
+
+  @@unique([jobId, idempotencyKey])
+  @@index([jobId, status, submittedAt], map: "applications_job_status_idx")
+  @@index([candidateId, submittedAt], map: "applications_candidate_idx")
+  @@index([intakeState, submittedAt], map: "applications_intake_idx")
+  @@index([retentionExpiresAt, id], map: "applications_retention_idx")
+  @@map("applications")
+  @@schema("portal")
+}
+
+model AuditLog {
+  id          String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  actorId     String?       @map("actor_id") @db.Uuid
+  objectType  String        @map("object_type") @db.Text
+  objectId    String        @map("object_id") @db.Uuid
+  action      String        @db.Text
+  safeChanges Json          @default("{}") @map("safe_changes") @db.JsonB
+  requestId   String        @map("request_id") @db.Uuid
+  createdAt   DateTime      @default(now()) @map("created_at") @db.Timestamptz(6)
+  actor       StaffProfile? @relation(fields: [actorId], references: [id], onDelete: Restrict, onUpdate: NoAction)
+
+  @@index([objectType, objectId, createdAt], map: "audit_logs_object_idx")
+  @@index([actorId, createdAt], map: "audit_logs_actor_idx")
+  @@index([createdAt(sort: Desc), id(sort: Desc)], map: "audit_logs_recent_idx")
+  @@index([requestId, createdAt(sort: Desc), id(sort: Desc)], map: "audit_logs_request_idx")
+  @@map("audit_logs")
+  @@schema("portal")
+}
+
+model JobImport {
+  id               String       @id @db.Uuid
+  actorId          String       @map("actor_id") @db.Uuid
+  fileName         String       @map("file_name") @db.Text
+  status           String       @db.Text
+  duplicateMode    String       @map("duplicate_mode") @db.Text
+  totalRows        Int          @map("total_rows")
+  createdCount     Int          @default(0) @map("created_count")
+  overwrittenCount Int          @default(0) @map("overwritten_count")
+  skippedCount     Int          @default(0) @map("skipped_count")
+  failedCount      Int          @default(0) @map("failed_count")
+  createdAt        DateTime     @default(now()) @map("created_at") @db.Timestamptz(6)
+  actor            StaffProfile @relation(fields: [actorId], references: [id], onDelete: Restrict, onUpdate: NoAction)
+
+  @@index([createdAt(sort: Desc), id(sort: Desc)], map: "job_imports_recent_idx")
+  @@index([actorId], map: "job_imports_actor_idx")
+  @@map("job_imports")
+  @@schema("portal")
+}
+
+model OutboxEvent {
+  id             String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  eventType      String    @map("event_type") @db.Text
+  aggregateId    String    @map("aggregate_id") @db.Uuid
+  deliveryKey    String    @unique @map("delivery_key") @db.Text
+  safeReferences Json      @default("{}") @map("safe_references") @db.JsonB
+  state          String    @default("PENDING") @db.Text
+  attempts       Int       @default(0)
+  availableAt    DateTime  @default(now()) @map("available_at") @db.Timestamptz(6)
+  leaseToken     String?   @map("lease_token") @db.Uuid
+  leaseUntil     DateTime? @map("lease_until") @db.Timestamptz(6)
+  createdAt      DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  @@map("outbox_events")
+  @@schema("portal")
+}
+
+model ContentBlock {
+  id                 String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  type               String        @db.Text
+  slot               String?       @unique @db.Text
+  publishedSortOrder Int?          @map("published_sort_order")
+  publishedVersion   Int?          @map("published_version")
+  sortOrder          Int           @default(0) @map("sort_order")
+  draftContent       Json          @map("draft_content") @db.JsonB
+  publishedContent   Json?         @map("published_content") @db.JsonB
+  publishedBy        String?       @map("published_by") @db.Uuid
+  publishedAt        DateTime?     @map("published_at") @db.Timestamptz(6)
+  version            Int           @default(1)
+  createdAt          DateTime      @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt          DateTime      @default(now()) @map("updated_at") @db.Timestamptz(6)
+  publisher          StaffProfile? @relation(fields: [publishedBy], references: [id], onDelete: Restrict, onUpdate: NoAction)
+
+  @@index([type, sortOrder, id], map: "content_blocks_order_idx")
+  @@index([publishedBy], map: "content_blocks_publisher_idx")
+  @@map("content_blocks")
+  @@schema("portal")
+}
+
+model ContentImage {
+  id         String       @id @db.Uuid
+  objectKey  String       @unique @map("object_key") @db.Text
+  width      Int
+  height     Int
+  sizeBytes  Int          @map("size_bytes")
+  sha256     String       @db.Text
+  uploadedBy String       @map("uploaded_by") @db.Uuid
+  uploader   StaffProfile @relation(fields: [uploadedBy], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  createdAt  DateTime     @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  @@map("content_images")
+  @@schema("portal")
+}
+
+model ContactMessage {
+  id              String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  senderEncrypted Bytes         @map("sender_encrypted") @db.ByteA
+  bodyEncrypted   Bytes         @map("body_encrypted") @db.ByteA
+  locale          String        @db.Text
+  state           String        @default("NEW") @db.Text
+  assignedTo      String?       @map("assigned_to") @db.Uuid
+  createdAt       DateTime      @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt       DateTime      @default(now()) @map("updated_at") @db.Timestamptz(6)
+  assignee        StaffProfile? @relation(fields: [assignedTo], references: [id], onDelete: Restrict, onUpdate: NoAction)
+
+  @@index([state, createdAt], map: "contact_messages_inbox_idx")
+  @@index([assignedTo], map: "contact_messages_assignee_idx")
+  @@map("contact_messages")
+  @@schema("portal")
+}
+
+model DailyMetric {
+  id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  metricDate DateTime @map("metric_date") @db.Date
+  jobId      String?  @map("job_id") @db.Uuid
+  pageKey    String   @map("page_key") @db.Text
+  locale     String   @db.Text
+  source     String   @db.Text
+  pageViews  BigInt   @default(0) @map("page_views")
+  updatedAt  DateTime @default(now()) @map("updated_at") @db.Timestamptz(6)
+  job        Job?     @relation(fields: [jobId], references: [id], onDelete: Restrict, onUpdate: NoAction)
+
+  @@unique([metricDate, jobId, pageKey, locale, source], map: "daily_metrics_dimensions_key")
+  @@index([jobId, metricDate], map: "daily_metrics_job_idx")
+  @@map("daily_metrics")
+  @@schema("portal")
+}
+
+model DeletionRequest {
+  id                   String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  candidateId          String?       @map("candidate_id") @db.Uuid
+  verifiedRequesterRef String        @map("verified_requester_ref") @db.Uuid
+  state                String        @default("REQUESTED") @db.Text
+  reasonCode           String        @map("reason_code") @db.Text
+  requestedAt          DateTime      @default(now()) @map("requested_at") @db.Timestamptz(6)
+  verifiedAt           DateTime?     @map("verified_at") @db.Timestamptz(6)
+  verifiedBy           String?       @map("verified_by") @db.Uuid
+  dueAt                DateTime      @map("due_at") @db.Timestamptz(6)
+  completedAt          DateTime?     @map("completed_at") @db.Timestamptz(6)
+  cleanupProgress      Json          @default("{}") @map("cleanup_progress") @db.JsonB
+  version              Int           @default(1)
+  decisionCode         String?       @map("decision_code") @db.Text
+  updatedAt            DateTime      @default(now()) @map("updated_at") @db.Timestamptz(6)
+  candidate            Candidate?    @relation(fields: [candidateId], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  verifier             StaffProfile? @relation(fields: [verifiedBy], references: [id], onDelete: Restrict, onUpdate: NoAction)
+
+  @@index([state, dueAt], map: "deletion_requests_queue_idx")
+  @@index([candidateId], map: "deletion_requests_candidate_idx")
+  @@index([verifiedBy], map: "deletion_requests_verifier_idx")
+  @@map("deletion_requests")
+  @@schema("portal")
+}
+
+model PrivacyPolicy {
+  id               Int      @id @default(1)
+  retentionMonths  Int      @default(24) @map("retention_months")
+  evidenceMonths   Int      @default(24) @map("evidence_months")
+  retentionEnabled Boolean  @default(false) @map("retention_enabled")
+  version          Int      @default(1)
+  updatedAt        DateTime @default(now()) @map("updated_at") @db.Timestamptz(6)
+
+  @@map("privacy_policy")
+  @@schema("portal")
+}
+
+model CandidateLegalHold {
+  candidateId String       @id @map("candidate_id") @db.Uuid
+  caseRef     String       @map("case_ref") @db.Uuid
+  reasonCode  String       @map("reason_code") @db.Text
+  holdUntil   DateTime     @map("hold_until") @db.Timestamptz(6)
+  releasedAt  DateTime?    @map("released_at") @db.Timestamptz(6)
+  version     Int          @default(1)
+  createdBy   String       @map("created_by") @db.Uuid
+  createdAt   DateTime     @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt   DateTime     @default(now()) @map("updated_at") @db.Timestamptz(6)
+  candidate   Candidate    @relation(fields: [candidateId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  creator     StaffProfile @relation(fields: [createdBy], references: [id], onDelete: Restrict, onUpdate: NoAction)
+
+  @@map("candidate_legal_holds")
+  @@schema("portal")
+}
