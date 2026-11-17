@@ -116,3 +116,80 @@ test("Uncertain provider writes and failed finalization never release the grant 
     assert.ok(f.calls.some((x) => x[0] === "signout"));
   }
 });
+
+import { changeOwnPassword } from "../../../src/server/auth/password.ts";
+function changeFixture({ loginError, grantError } = {}) {
+  const calls = [];
+  const verifier = {
+    auth: {
+      signOut: async (options) => {
+        calls.push(["verifier-signout", options.scope]);
+        return { error: null };
+      },
+    },
+  };
+  const dependencies = {
+    verifier: () => verifier,
+    login: async (client, input, clear) => {
+      calls.push(["login", client === verifier, input.email, input.password]);
+      clear();
+      if (loginError) throw loginError;
+    },
+    grant: async () => {
+      calls.push(["grant"]);
+      if (grantError) throw grantError;
+      return grant;
+    },
+    update: async (_client, _identity, token, value) =>
+      calls.push(["update", token, value]),
+  };
+  const input = (overrides = {}) => ({
+    client: {},
+    identity,
+    email: "staff@example.com",
+    currentPassword: "old-password-1",
+    newPassword: password,
+    captchaToken: "captcha",
+    clearCookies: () => calls.push(["clear-main-cookies"]),
+    ...overrides,
+  });
+  return {
+    calls,
+    run: (overrides) => changeOwnPassword(input(overrides), dependencies),
+  };
+}
+test("Changing your own password proves the current password first, then reuses the grant flow", async () => {
+  const f = changeFixture();
+  await f.run();
+  assert.deepEqual(f.calls, [
+    ["login", true, "staff@example.com", "old-password-1"],
+    ["verifier-signout", "local"],
+    ["grant"],
+    ["update", grant, password],
+  ]);
+});
+test("A wrong current password stops before any grant or provider update", async () => {
+  const { StaffAuthError } = await import("../../../src/server/auth/errors.ts");
+  const f = changeFixture({ loginError: new StaffAuthError(401, "invalid_login") });
+  await assert.rejects(f.run(), { code: "invalid_login" });
+  assert.deepEqual(
+    f.calls.map((x) => x[0]),
+    ["login"],
+  );
+});
+test("Weak or unchanged passwords are rejected without contacting the provider", async () => {
+  const weak = changeFixture();
+  await assert.rejects(weak.run({ newPassword: "short" }), {
+    code: "password_weak",
+  });
+  const same = changeFixture();
+  await assert.rejects(
+    same.run({ currentPassword: password, newPassword: password }),
+    { code: "password_reused" },
+  );
+  const tiny = changeFixture();
+  await assert.rejects(tiny.run({ currentPassword: "x" }), {
+    code: "invalid_login",
+  });
+  for (const f of [weak, same, tiny]) assert.equal(f.calls.length, 0);
+});

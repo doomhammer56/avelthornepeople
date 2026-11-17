@@ -4,6 +4,8 @@ import { withRuntime } from "../database/runtime.ts";
 import type { StaffIdentity } from "./identity.ts";
 import { StaffAuthError } from "./errors.ts";
 import type { SupabaseClient } from "@supabase/supabase-js";
+import { identityClient } from "../adapters/auth/config.ts";
+import { loginStaff } from "./login.ts";
 
 export const PASSWORD_COOKIE = "portal-password-setup";
 export async function createPasswordGrant(identity: StaffIdentity) {
@@ -143,4 +145,64 @@ export async function updatePassword(
     }
     throw error;
   }
+}
+
+type ChangeOwnPasswordDependencies = {
+  verifier: () => Pick<SupabaseClient, "auth">;
+  login: typeof loginStaff;
+  grant: typeof createPasswordGrant;
+  update: typeof updatePassword;
+};
+const changeDependencies: ChangeOwnPasswordDependencies = {
+  verifier: identityClient,
+  login: loginStaff,
+  grant: createPasswordGrant,
+  update: updatePassword,
+};
+
+// Signed-in password change. The current password is proven through the normal
+// sign-in path (lockout, CAPTCHA) on a throwaway in-memory client, so wrong
+// guesses count against the same limits as the login form and the caller's own
+// cookies are never touched. Only then is a single-use grant minted for the
+// current session and spent by the existing update flow, which records the
+// audit entry, revokes every older session and signs the caller out.
+export async function changeOwnPassword(
+  input: {
+    client: Pick<SupabaseClient, "auth">;
+    identity: StaffIdentity;
+    email: string;
+    currentPassword: string;
+    newPassword: string;
+    captchaToken: string;
+    clearCookies: () => void;
+  },
+  dependencies = changeDependencies,
+) {
+  const { currentPassword, newPassword } = input;
+  if (newPassword.length < 12 || newPassword.length > 256)
+    throw new StaffAuthError(400, "password_weak");
+  if (currentPassword.length < 8 || currentPassword.length > 256)
+    throw new StaffAuthError(401, "invalid_login");
+  if (newPassword === currentPassword)
+    throw new StaffAuthError(400, "password_reused");
+  const verifier = dependencies.verifier();
+  await dependencies.login(
+    verifier,
+    {
+      email: input.email,
+      password: currentPassword,
+      captchaToken: input.captchaToken,
+    },
+    () => {},
+  );
+  // The proof-of-password session has served its purpose.
+  await verifier.auth.signOut({ scope: "local" }).catch(() => {});
+  const token = await dependencies.grant(input.identity);
+  await dependencies.update(
+    input.client,
+    input.identity,
+    token,
+    newPassword,
+    input.clearCookies,
+  );
 }

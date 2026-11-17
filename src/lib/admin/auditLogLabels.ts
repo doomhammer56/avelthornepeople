@@ -52,6 +52,7 @@ export const auditActionLabels: Record<string, Label> = {
   STAFF_LINKED: { en: "Staff account linked", zh: "关联员工账号" },
   STAFF_CHANGED: { en: "Staff access changed", zh: "更新员工权限" },
   STAFF_DELETED: { en: "Staff account deleted", zh: "删除员工账号" },
+  STAFF_RENAMED: { en: "Staff name changed", zh: "修改员工姓名" },
   STAFF_BOOTSTRAPPED: {
     en: "Administrator account created",
     zh: "创建管理员账号",

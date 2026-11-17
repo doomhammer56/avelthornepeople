@@ -136,5 +136,7 @@ export function pageTitle(pathname: string, lang: AdminLang): string {
         (item.href !== "/admin" && pathname.startsWith(`${item.href}/`))
       )
         return item.label[lang];
+  // Reached from the sidebar profile, not a nav item: every role may open it.
+  if (pathname === "/admin/account") return lang === "zh" ? "我的账号" : "My account";
   return lang === "zh" ? "招聘管理后台" : "Staff Console";
 }

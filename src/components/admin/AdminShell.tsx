@@ -71,8 +71,8 @@ const ICONS: Record<NavIcon, LucideIcon> = {
 };
 
 const text = {
-  en: { viewSite: "View public site" },
-  zh: { viewSite: "查看公开官网" },
+  en: { viewSite: "View public site", myAccount: "My account" },
+  zh: { viewSite: "查看公开官网", myAccount: "我的账号" },
 };
 
 type Props = {
@@ -228,19 +228,27 @@ export function AdminShell({
 
           <SidebarFooter>
             <div className="flex items-center gap-2.5 px-1 py-1">
-              <Avatar className="size-8 bg-accent" aria-hidden="true">
-                <AvatarFallback className="bg-accent text-[13px] font-bold text-primary">
-                  {staff.displayName.slice(0, 1).toUpperCase()}
-                </AvatarFallback>
-              </Avatar>
-              <span className="flex min-w-0 flex-1 flex-col gap-1 overflow-hidden group-data-[collapsible=icon]:hidden">
-                <strong className="truncate text-[13px] leading-none font-semibold">
-                  {staff.displayName}
-                </strong>
-                <span className="truncate text-xs text-muted-foreground">
-                  {roleLabel[staff.role][lang]}
+              {/* Every role can open their own name and password settings here. */}
+              <Link
+                href={`/admin/account${langQuery}`}
+                title={t.myAccount}
+                aria-label={`${t.myAccount}: ${staff.displayName}`}
+                className="flex min-w-0 flex-1 items-center gap-2.5 rounded-md outline-none hover:bg-sidebar-accent focus-visible:ring-2 focus-visible:ring-ring/50"
+              >
+                <Avatar className="size-8 bg-accent" aria-hidden="true">
+                  <AvatarFallback className="bg-accent text-[13px] font-bold text-primary">
+                    {staff.displayName.slice(0, 1).toUpperCase()}
+                  </AvatarFallback>
+                </Avatar>
+                <span className="flex min-w-0 flex-1 flex-col gap-1 overflow-hidden group-data-[collapsible=icon]:hidden">
+                  <strong className="truncate text-[13px] leading-none font-semibold">
+                    {staff.displayName}
+                  </strong>
+                  <span className="truncate text-xs text-muted-foreground">
+                    {roleLabel[staff.role][lang]}
+                  </span>
                 </span>
-              </span>
+              </Link>
               <span className="group-data-[collapsible=icon]:hidden">
                 <AdminLogoutButton lang={lang} />
               </span>

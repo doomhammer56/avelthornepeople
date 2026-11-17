@@ -20,10 +20,12 @@ import { cookieIdentity } from "@/server/auth/identity";
 import { loginStaff } from "@/server/auth/login";
 import { limitAuthAttempt } from "@/server/auth/limiter";
 import {
+  changeOwnPassword,
   createPasswordGrant,
   updatePassword,
   PASSWORD_COOKIE,
 } from "@/server/auth/password";
+import { requireStaff } from "@/server/auth/staff";
 
 export const runtime = "nodejs";
 
@@ -36,7 +38,16 @@ export async function POST(
   try {
     assertSameOrigin(request);
     const { action } = await context.params;
-    if (!["login", "recover", "logout", "confirm", "password"].includes(action))
+    if (
+      ![
+        "login",
+        "recover",
+        "logout",
+        "confirm",
+        "password",
+        "change-password",
+      ].includes(action)
+    )
       throw new StaffAuthError(400);
     const body = await readAuthBody(request);
     auth = requestAuth(request, action === "login" || action === "confirm");
@@ -144,6 +155,39 @@ export async function POST(
         sameSite: "strict",
         path: "/",
         maxAge: 600,
+      });
+      return auth.finish(response);
+    } else if (action === "change-password") {
+      // Signed-in change: needs a live, active staff session plus the current
+      // password. Success revokes every session, so the client must sign in again.
+      requireCaptchaConfiguration();
+      const identity = await cookieIdentity(auth.client);
+      await requireStaff(identity);
+      await limitAuthAttempt(request);
+      const text = (value: unknown, max: number) =>
+        typeof value === "string" && value.length <= max ? value : "";
+      const captchaToken = text(body.captchaToken, 4096);
+      if (!captchaToken) throw new StaffAuthError(400, "captcha_failed");
+      const { data, error } = await auth.client.auth.getUser(identity.token);
+      const email = data.user?.email?.trim().toLowerCase();
+      if (error || !email || data.user?.id !== identity.subject)
+        throw new StaffAuthError(503);
+      await changeOwnPassword({
+        client: auth.client,
+        identity,
+        email,
+        currentPassword: text(body.currentPassword, 256),
+        newPassword: text(body.password, 256),
+        captchaToken,
+        clearCookies: () => auth!.clearSessionCookies(),
+      });
+      const response = NextResponse.json({
+        next: `/admin/login?updated=1&lang=${lang}`,
+      });
+      response.cookies.set(PASSWORD_COOKIE, "", {
+        path: "/",
+        maxAge: 0,
+        httpOnly: true,
       });
       return auth.finish(response);
     } else {

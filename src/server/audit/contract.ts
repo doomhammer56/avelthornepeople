@@ -46,6 +46,7 @@ export const knownActions = z.enum([
   "STAFF_LINKED",
   "STAFF_CHANGED",
   "STAFF_DELETED",
+  "STAFF_RENAMED",
   "STAFF_BOOTSTRAPPED",
   "STAFF_PROVIDER_SYNCED",
   "PASSWORD_CHANGED",
