@@ -136,9 +136,9 @@ export const ContentPagePreview = memo(function ContentPagePreview({
       html { color-scheme: light; scroll-behavior: auto; }
       [data-preview-block] { cursor: pointer; }
       [data-preview-block]:hover, [data-preview-block]:focus-visible {
-        outline: 2px dashed #55687a; outline-offset: -3px;
+        outline: 2px dashed #3d6b52; outline-offset: -3px;
       }
-      [data-preview-selected="true"] { outline: 2px solid #55687a; outline-offset: -3px; }
+      [data-preview-selected="true"] { outline: 2px solid #3d6b52; outline-offset: -3px; }
       [data-preview-block]:focus-visible { outline-width: 4px; }
       [data-public-site] [data-reveal] { opacity: 1 !important; transform: none !important; }
       [data-public-site] *, [data-public-site] *::before, [data-public-site] *::after {

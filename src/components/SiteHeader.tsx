@@ -68,7 +68,7 @@ export function SiteHeader({
   };
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-[#061722]/10 bg-[#f4eee4]/95 backdrop-blur-md supports-backdrop-filter:bg-[#f4eee4]/90 transition-all">
+    <header className="sticky top-0 z-40 w-full border-b border-[#13261c]/10 bg-[#edf3ec]/95 backdrop-blur-md supports-backdrop-filter:bg-[#edf3ec]/90 transition-all">
       {/* Scroll Progress Indicator */}
       <div
         className="absolute bottom-0 left-0 h-[2px] w-full origin-left scale-x-0 bg-brand-teal"

@@ -115,13 +115,13 @@ export const statusPageClass = "grid min-h-[70svh] place-items-center px-6 py-[c
 export const statusPanelClass = "w-full max-w-[620px] text-center";
 
 export const statusCodeClass =
-  "!mb-6 font-sans text-[clamp(100px,20vw,180px)] leading-[0.9] tracking-[-0.04em] text-[var(--site-accent,#55687a)] opacity-35";
+  "!mb-6 font-sans text-[clamp(100px,20vw,180px)] leading-[0.9] tracking-[-0.04em] text-[var(--site-accent,#3d6b52)] opacity-35";
 
 export const statusTitleClass =
   "!mt-3 text-[length:clamp(28px,5vw,44px)]";
 
 export const statusDescriptionClass =
-  "!mt-5 leading-relaxed text-[var(--site-ink-secondary,#565a63)]";
+  "!mt-5 leading-relaxed text-[var(--site-ink-secondary,#4b5a51)]";
 
 export const statusActionsClass =
   "mt-8 flex flex-wrap justify-center gap-3 max-[480px]:[&>*]:w-full max-[480px]:[&>*]:justify-center";

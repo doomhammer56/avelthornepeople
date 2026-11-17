@@ -98,49 +98,49 @@
   --font-hanken: var(--font-host-grotesk);
 
   /* Brand core tokens (Avelthorne People Group) */
-  --brand-ivory: #f4eee4;
-  --brand-navy: #061722;
-  --brand-navy-light: #0d283b;
-  --brand-teal: #17545b;
-  --brand-teal-hover: #124349;
-  --brand-teal-light: #eaf2f3;
-  --brand-gold: #b79761;
-  --brand-gold-muted: rgba(183, 151, 97, 0.35);
-  --brand-rule: #b79761;
+  --brand-ivory: #edf3ec;
+  --brand-navy: #0f3a28;
+  --brand-navy-light: #1a4d36;
+  --brand-teal: #1f7a4d;
+  --brand-teal-hover: #18633e;
+  --brand-teal-light: #dcefe3;
+  --brand-gold: #c8662b;
+  --brand-gold-muted: rgba(200, 102, 43, 0.35);
+  --brand-rule: #c8662b;
 
   /* Semantic UI tokens */
-  --background: #f4eee4; /* Rich warm ivory */
-  --foreground: #061722; /* Deep Navy */
+  --background: #edf3ec; /* Rich warm ivory */
+  --foreground: #13261c; /* Deep Navy */
   --card: #ffffff;
-  --card-foreground: #061722;
+  --card-foreground: #13261c;
   --popover: #ffffff;
-  --popover-foreground: #061722;
-  --primary: #17545b; /* Avelthorne Teal */
+  --popover-foreground: #13261c;
+  --primary: #1f7a4d; /* Avelthorne Teal */
   --primary-foreground: #ffffff;
-  --secondary: #f3efe8; /* Warm paper / soft cream */
-  --secondary-foreground: #061722;
-  --muted: #f1eee7; /* Soft muted ivory */
-  --muted-foreground: #5c6972; /* High legibility dark slate */
-  --accent: #eaf2f3; /* Subtle teal tint */
-  --accent-foreground: #17545b;
+  --secondary: #e3ede4; /* Warm paper / soft cream */
+  --secondary-foreground: #13261c;
+  --muted: #e6eee5; /* Soft muted ivory */
+  --muted-foreground: #4f6658; /* High legibility dark slate */
+  --accent: #dcefe3; /* Subtle teal tint */
+  --accent-foreground: #1f7a4d;
   --destructive: oklch(0.577 0.245 27.325);
-  --border: rgba(6, 23, 34, 0.12); /* Crisp slate border */
-  --input: rgba(6, 23, 34, 0.24);
-  --ring: #17545b;
-  --chart-1: #17545b;
-  --chart-2: #061722;
-  --chart-3: #b79761;
-  --chart-4: #5c6972;
-  --chart-5: #36414c;
+  --border: rgba(19, 38, 28, 0.12); /* Crisp slate border */
+  --input: rgba(19, 38, 28, 0.24);
+  --ring: #1f7a4d;
+  --chart-1: #1f7a4d;
+  --chart-2: #0f3a28;
+  --chart-3: #c8662b;
+  --chart-4: #4f6658;
+  --chart-5: #2f4a3b;
   --radius: 0.5rem; /* 4px modern subtle radius */
   --sidebar: #ffffff;
-  --sidebar-foreground: #061722;
-  --sidebar-primary: #17545b;
+  --sidebar-foreground: #13261c;
+  --sidebar-primary: #1f7a4d;
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #f3efe8;
-  --sidebar-accent-foreground: #061722;
-  --sidebar-border: rgba(6, 23, 34, 0.12);
-  --sidebar-ring: #17545b;
+  --sidebar-accent: #e3ede4;
+  --sidebar-accent-foreground: #13261c;
+  --sidebar-border: rgba(19, 38, 28, 0.12);
+  --sidebar-ring: #1f7a4d;
   /* Status tones used by Badge. The staff console re-points these at its own
      palette (admin.css), so a status reads the same on every screen. */
   --tone-gray-bg: #f0f1f2;
@@ -155,7 +155,7 @@
   --tone-green-fg: #3d6b4b;
   --tone-accent-bg: var(--accent);
   --tone-accent-fg: var(--accent-foreground);
-  --site-ink-secondary: #565a63;
+  --site-ink-secondary: #4b5a51;
   --site-header-surface: color-mix(in srgb, var(--muted) 76%, var(--site-ink-secondary));
   --site-header-surface-light: color-mix(in srgb, var(--secondary) 85%, var(--foreground));
   --site-page-heading-size: clamp(28px, 3vw, 40px);

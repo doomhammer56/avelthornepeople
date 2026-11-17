@@ -50,7 +50,7 @@ export function BrandLockup({
   );
 
   return variant === "light" ? (
-    <span className="inline-flex rounded-lg bg-[#f4eee4] px-3.5 py-2.5">
+    <span className="inline-flex rounded-lg bg-[#edf3ec] px-3.5 py-2.5">
       {lockup}
     </span>
   ) : (

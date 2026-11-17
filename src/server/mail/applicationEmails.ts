@@ -4,7 +4,7 @@ type EmailLocale = "en" | "zh";
 type Email = { subject: string; html: string; text: string };
 
 const brand = "Avelthorne People Group";
-const accent = "#55687a";
+const accent = "#3d6b52";
 
 // Shared envelope for every transactional email: a plain white card with the
 // brand name, a short intro, a body block, and a quiet closing line. Email
@@ -12,7 +12,7 @@ const accent = "#55687a";
 function layout(preheader: string, bodyHtml: string, closingHtml: string) {
   return `<!doctype html>
 <html>
-  <body style="margin:0;padding:0;background:#f4f3ef;font-family:-apple-system,Segoe UI,Helvetica,Arial,sans-serif;color:#33363d;">
+  <body style="margin:0;padding:0;background:#f4f3ef;font-family:-apple-system,Segoe UI,Helvetica,Arial,sans-serif;color:#22302a;">
     <span style="display:none;max-height:0;overflow:hidden;">${preheader}</span>
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f4f3ef;padding:32px 16px;">
       <tr>
@@ -30,7 +30,7 @@ function layout(preheader: string, bodyHtml: string, closingHtml: string) {
             </tr>
             <tr>
               <td style="padding:0 32px 28px;border-top:1px solid #efeeea;">
-                <p style="font-size:13px;line-height:1.6;color:#7c808a;margin:16px 0 0;">${closingHtml}</p>
+                <p style="font-size:13px;line-height:1.6;color:#6b7a70;margin:16px 0 0;">${closingHtml}</p>
               </td>
             </tr>
           </table>
@@ -141,7 +141,7 @@ export function interviewEmail(
         ${rows
           .map(
             ([label, value]) =>
-              `<tr><td style="padding:10px 14px;font-size:13px;color:#7c808a;white-space:nowrap;">${label}</td><td style="padding:10px 14px;font-size:14px;">${value}</td></tr>`,
+              `<tr><td style="padding:10px 14px;font-size:13px;color:#6b7a70;white-space:nowrap;">${label}</td><td style="padding:10px 14px;font-size:14px;">${value}</td></tr>`,
           )
           .join("")}
       </table>`

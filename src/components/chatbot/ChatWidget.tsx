@@ -131,7 +131,7 @@ export function ChatWidget({ job, lang = "en" }: Props) {
         aria-label={open ? "Close chat" : "Open hiring assistant"}
         onClick={() => setOpen((v) => !v)}
         className="fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full shadow-lg transition-all duration-200 hover:scale-105 active:scale-95"
-        style={{ backgroundColor: "#17545b", color: "#f4eee4" }}
+        style={{ backgroundColor: "#1f7a4d", color: "#edf3ec" }}
       >
         {open ? <X size={22} /> : <MessageCircle size={24} />}
       </button>
@@ -140,18 +140,18 @@ export function ChatWidget({ job, lang = "en" }: Props) {
       {open && (
         <div
           className="fixed bottom-24 right-6 z-50 flex w-[360px] max-w-[calc(100vw-24px)] flex-col overflow-hidden rounded-2xl shadow-2xl"
-          style={{ height: "520px", border: "1px solid #17545b22" }}
+          style={{ height: "520px", border: "1px solid #1f7a4d22" }}
           role="dialog"
           aria-label="Hiring assistant"
         >
           {/* Header */}
           <div
             className="flex shrink-0 items-center gap-3 px-4 py-3"
-            style={{ backgroundColor: "#061722" }}
+            style={{ backgroundColor: "#0f3a28" }}
           >
             <div
               className="flex h-9 w-9 items-center justify-center rounded-full text-sm font-semibold"
-              style={{ backgroundColor: "#17545b", color: "#f4eee4" }}
+              style={{ backgroundColor: "#1f7a4d", color: "#edf3ec" }}
               aria-hidden="true"
             >
               AI
@@ -159,18 +159,18 @@ export function ChatWidget({ job, lang = "en" }: Props) {
             <div>
               <p
                 className="text-sm font-semibold leading-tight"
-                style={{ color: "#f4eee4" }}
+                style={{ color: "#edf3ec" }}
               >
                 Hiring Assistant
               </p>
-              <p className="text-xs" style={{ color: "#b79761" }}>
+              <p className="text-xs" style={{ color: "#c8662b" }}>
                 Avelthorne People Group
               </p>
             </div>
             <button
               type="button"
               className="ml-auto rounded p-1 transition-opacity hover:opacity-70"
-              style={{ color: "#f4eee4" }}
+              style={{ color: "#edf3ec" }}
               aria-label="Close chat"
               onClick={() => setOpen(false)}
             >
@@ -181,7 +181,7 @@ export function ChatWidget({ job, lang = "en" }: Props) {
           {/* Messages */}
           <div
             className="flex flex-1 flex-col gap-3 overflow-y-auto px-4 py-3"
-            style={{ backgroundColor: "#f4eee4" }}
+            style={{ backgroundColor: "#edf3ec" }}
           >
             {messages.map((msg, i) => (
               <div
@@ -192,14 +192,14 @@ export function ChatWidget({ job, lang = "en" }: Props) {
                   className="max-w-[82%] rounded-2xl px-3 py-2 text-sm leading-relaxed"
                   style={
                     msg.role === "user"
-                      ? { backgroundColor: "#17545b", color: "#f4eee4", borderBottomRightRadius: 4 }
-                      : { backgroundColor: "#ffffff", color: "#061722", border: "1px solid #e0d8cc", borderBottomLeftRadius: 4 }
+                      ? { backgroundColor: "#1f7a4d", color: "#edf3ec", borderBottomRightRadius: 4 }
+                      : { backgroundColor: "#ffffff", color: "#13261c", border: "1px solid #cfdfd2", borderBottomLeftRadius: 4 }
                   }
                 >
                   {msg.content || (
                     <span
                       className="inline-flex items-center gap-1"
-                      style={{ color: "#17545b" }}
+                      style={{ color: "#1f7a4d" }}
                     >
                       <Loader2 size={12} className="animate-spin" />
                     </span>
@@ -214,7 +214,7 @@ export function ChatWidget({ job, lang = "en" }: Props) {
           <form
             onSubmit={send}
             className="flex shrink-0 items-end gap-2 border-t px-3 py-2"
-            style={{ backgroundColor: "#ffffff", borderColor: "#e0d8cc" }}
+            style={{ backgroundColor: "#ffffff", borderColor: "#cfdfd2" }}
           >
             <textarea
               ref={inputRef}
@@ -225,14 +225,14 @@ export function ChatWidget({ job, lang = "en" }: Props) {
               disabled={streaming}
               placeholder={PLACEHOLDER[lang] ?? PLACEHOLDER.en}
               className="flex-1 resize-none rounded-xl border-0 bg-transparent px-2 py-2 text-sm outline-none placeholder:text-gray-400 disabled:opacity-50"
-              style={{ color: "#061722", maxHeight: 120 }}
+              style={{ color: "#13261c", maxHeight: 120 }}
               aria-label="Message"
             />
             <button
               type="submit"
               disabled={!input.trim() || streaming}
               className="mb-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full transition-all disabled:opacity-40"
-              style={{ backgroundColor: "#17545b", color: "#f4eee4" }}
+              style={{ backgroundColor: "#1f7a4d", color: "#edf3ec" }}
               aria-label={SEND_LABEL[lang] ?? "Send"}
             >
               {streaming ? (

@@ -165,7 +165,7 @@ export function AdminShell({
                 Stacking the control in icon mode leaves it reachable after collapse. */}
             <div className="flex items-center gap-2.5 px-1 py-1 group-data-[collapsible=icon]:flex-col">
               <span
-                className="flex size-8 flex-none items-center justify-center rounded-md bg-[#f4eee4]"
+                className="flex size-8 flex-none items-center justify-center rounded-md bg-[#edf3ec]"
                 aria-hidden="true"
               >
                 <Image

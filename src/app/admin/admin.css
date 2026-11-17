@@ -8,7 +8,7 @@
   overflow: hidden;
   pointer-events: none;
   opacity: 0;
-  background: rgba(79, 111, 148, 0.14);
+  background: rgba(31, 122, 77, 0.14);
 }
 .admin-navigation-progress[data-pending="true"] {
   animation: admin-progress-appear 0s 120ms forwards;
@@ -17,8 +17,8 @@
   display: block;
   height: 100%;
   width: 35%;
-  background: #4f6f94;
-  box-shadow: 0 0 8px rgba(79, 111, 148, 0.4);
+  background: #1f7a4d;
+  box-shadow: 0 0 8px rgba(31, 122, 77, 0.4);
 }
 .admin-navigation-progress[data-pending="true"] span {
   animation: admin-progress-slide 1.3s ease-in-out infinite;
@@ -59,19 +59,19 @@
    pick up the console palette and dark mode without per-component wrappers. */
 .admin-shell,
 body[data-admin-theme] {
-  --admin-accent: #4f6f94;
-  --admin-accent-press: #415c7b;
+  --admin-accent: #1f7a4d;
+  --admin-accent-press: #18633e;
   --admin-accent-on: #ffffff;
-  --admin-soft: #e9eef4;
-  --admin-paper: #f4f5f6;
+  --admin-soft: #dcefe3;
+  --admin-paper: #eef3ee;
   --admin-paper-2: #ffffff;
-  --admin-paper-3: #f2f1ec;
-  --admin-ink: #33363d;
-  --admin-ink-2: #565a63;
-  --admin-ink-3: #7c808a;
-  --admin-border: rgba(51, 54, 61, 0.12);
-  --admin-border-strong: rgba(51, 54, 61, 0.24);
-  --admin-scrim: rgba(51, 54, 61, 0.35);
+  --admin-paper-3: #e8efe8;
+  --admin-ink: #22302a;
+  --admin-ink-2: #4b5a51;
+  --admin-ink-3: #6b7a70;
+  --admin-border: rgba(34, 48, 42, 0.12);
+  --admin-border-strong: rgba(34, 48, 42, 0.24);
+  --admin-scrim: rgba(34, 48, 42, 0.35);
   --admin-tone-gray-bg: #f0f1f2;
   --admin-tone-gray-fg: #6b6f78;
   --admin-tone-amber-bg: #f5efe4;
@@ -82,8 +82,8 @@ body[data-admin-theme] {
   --admin-tone-rose-fg: #8e5a5a;
   --admin-tone-green-bg: #e7f1ea;
   --admin-tone-green-fg: #3d6b4b;
-  --admin-chart-1: #4f6f94;
-  --admin-chart-2: #b08a4f;
+  --admin-chart-1: #1f7a4d;
+  --admin-chart-2: #c8662b;
   --admin-chart-3: #7f74a6;
   --admin-chart-4: #b76f6f;
   --admin-chart-5: #5f9674;
@@ -170,10 +170,10 @@ body[data-admin-theme] {
    ahead of time so the toggle only swaps a data attribute, not CSS functions. */
 .admin-shell[data-admin-theme="dark"],
 body[data-admin-theme="dark"] {
-  --admin-accent: #8ba2be;
-  --admin-accent-press: #a2b5cb;
+  --admin-accent: #7ccfa0;
+  --admin-accent-press: #9fe0bb;
   --admin-accent-on: #11151b;
-  --admin-soft: #24303d;
+  --admin-soft: #1d3a2b;
   --admin-paper: #13161b;
   --admin-paper-2: #1b1f26;
   --admin-paper-3: #222730;
@@ -193,7 +193,7 @@ body[data-admin-theme="dark"] {
   --admin-tone-rose-fg: #e2a9a9;
   --admin-tone-green-bg: #22302a;
   --admin-tone-green-fg: #a8d3b4;
-  --admin-chart-1: #8ba2be;
+  --admin-chart-1: #7ccfa0;
   --admin-chart-2: #e0c38e;
   --admin-chart-3: #bdb4dc;
   --admin-chart-4: #e2a9a9;
@@ -247,7 +247,7 @@ body[data-admin-theme="dark"] {
   zoom: var(--content-preview-scale, 1);
   border: 0;
   margin: 0 auto;
-  background: #faf9f6;
+  background: #f6faf5;
 }
 .admin-content-editor .admin-visual-frame {
   height: calc(var(--content-editor-height) / var(--content-preview-scale, 1));

@@ -59,7 +59,7 @@ export function HomeHeroSection({
   };
   return (
     <section
-      className="home-hero relative overflow-hidden min-h-[480px] sm:min-h-[520px] lg:min-h-[620px] bg-muted-foreground/10 border-b border-[#061722]/10"
+      className="home-hero relative overflow-hidden min-h-[480px] sm:min-h-[520px] lg:min-h-[620px] bg-muted-foreground/10 border-b border-[#13261c]/10"
       aria-labelledby="hero-heading"
     >
       <div

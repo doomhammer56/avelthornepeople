@@ -364,7 +364,7 @@ export function ApplicationDrawer({
           "data-[side=right]:w-full data-[side=right]:max-w-[min(100vw,600px)] sm:data-[side=right]:max-w-[600px]",
           "h-dvh motion-reduce:transition-none",
         )}
-        overlayClassName="bg-[rgb(51_54_61/35%)] backdrop-blur-none motion-reduce:transition-none"
+        overlayClassName="bg-[rgb(34_48_42/35%)] backdrop-blur-none motion-reduce:transition-none"
         showCloseButton={false}
         aria-modal="true"
         initialFocus={() => document.getElementById("apply-name")}

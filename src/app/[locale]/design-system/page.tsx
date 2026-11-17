@@ -90,7 +90,7 @@ export default async function DesignSystemPage({ params }: Props) {
           <div className="mt-8 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
             <div className="rounded-xl border border-border overflow-hidden bg-card p-4 shadow-xs">
               <div className="h-20 rounded-lg bg-brand-teal mb-3 flex items-end p-2.5">
-                <span className="text-xs text-white font-mono">#17545b</span>
+                <span className="text-xs text-white font-mono">#1f7a4d</span>
               </div>
               <strong className="block text-sm font-semibold">Teal (Primary)</strong>
               <span className="text-xs text-muted-foreground">Action, buttons, active</span>
@@ -98,7 +98,7 @@ export default async function DesignSystemPage({ params }: Props) {
 
             <div className="rounded-xl border border-border overflow-hidden bg-card p-4 shadow-xs">
               <div className="h-20 rounded-lg bg-brand-navy mb-3 flex items-end p-2.5">
-                <span className="text-xs text-white font-mono">#061722</span>
+                <span className="text-xs text-white font-mono">#13261c</span>
               </div>
               <strong className="block text-sm font-semibold">Deep Navy</strong>
               <span className="text-xs text-muted-foreground">Headings, CTA, contrast</span>
@@ -106,7 +106,7 @@ export default async function DesignSystemPage({ params }: Props) {
 
             <div className="rounded-xl border border-border overflow-hidden bg-card p-4 shadow-xs">
               <div className="h-20 rounded-lg bg-brand-ivory border border-border/80 mb-3 flex items-end p-2.5">
-                <span className="text-xs text-foreground font-mono">#faf9f6</span>
+                <span className="text-xs text-foreground font-mono">#f6faf5</span>
               </div>
               <strong className="block text-sm font-semibold">Ivory (Background)</strong>
               <span className="text-xs text-muted-foreground">Warm paper page surface</span>
@@ -114,7 +114,7 @@ export default async function DesignSystemPage({ params }: Props) {
 
             <div className="rounded-xl border border-border overflow-hidden bg-card p-4 shadow-xs">
               <div className="h-20 rounded-lg bg-brand-gold mb-3 flex items-end p-2.5">
-                <span className="text-xs text-white font-mono">#b79761</span>
+                <span className="text-xs text-white font-mono">#c8662b</span>
               </div>
               <strong className="block text-sm font-semibold">Gold (Accent)</strong>
               <span className="text-xs text-muted-foreground">Eyebrow rules, milestones</span>
@@ -122,15 +122,15 @@ export default async function DesignSystemPage({ params }: Props) {
 
             <div className="rounded-xl border border-border overflow-hidden bg-card p-4 shadow-xs">
               <div className="h-20 rounded-lg bg-secondary border border-border/60 mb-3 flex items-end p-2.5">
-                <span className="text-xs text-foreground font-mono">#f3efe8</span>
+                <span className="text-xs text-foreground font-mono">#e3ede4</span>
               </div>
               <strong className="block text-sm font-semibold">Cream / Soft</strong>
               <span className="text-xs text-muted-foreground">Cards & muted surfaces</span>
             </div>
 
             <div className="rounded-xl border border-border overflow-hidden bg-card p-4 shadow-xs">
-              <div className="h-20 rounded-lg bg-[#5c6972] mb-3 flex items-end p-2.5">
-                <span className="text-xs text-white font-mono">#5c6972</span>
+              <div className="h-20 rounded-lg bg-[#4f6658] mb-3 flex items-end p-2.5">
+                <span className="text-xs text-white font-mono">#4f6658</span>
               </div>
               <strong className="block text-sm font-semibold">Muted Slate</strong>
               <span className="text-xs text-muted-foreground">Body subtext (WCAG AA)</span>
